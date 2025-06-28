@@ -13,9 +13,9 @@ services:
       - ./nginx/kvn.conf.template:/etc/nginx/nginx.conf  # nginx 설정 파일을 직접 nginx.conf로 마운트
 
   ustreamer:
-   # build:
-   #   context: ./images/ustreamer/
-    image: haru2/ustreamer-docker:latest
+    build:
+      context: ./images/ustreamer/
+    #image: haru2/ustreamer-docker:latest
     container_name: ustreamer
     restart: always
     ports:

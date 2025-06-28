@@ -16,13 +16,11 @@ RUN apt-get update && apt-get install -y \
 # 작업 디렉토리를 만들고 그 안에서 작업을 수행합니다.
 WORKDIR /opt/ustreamer
 
-# ustreamer 소스 코드를 clone 합니다.
-# (현재 방식은 서브모듈로 이미 코드가 있으므로 이 단계는 사실상 필요 없지만,
-# 독립적인 Dockerfile을 위해 명시적으로 포함하는 것이 좋습니다.
-# build context에 이미 코드가 있으므로 아래 RUN은 생략해도 됩니다.)
-# RUN git clone https://github.com/pikvm/ustreamer.git .
+# --- 이 줄을 추가해 주세요! ---
+# build context(./images/ustreamer/)의 모든 내용을 현재 WORKDIR(/opt/ustreamer)로 복사
+COPY . .
 
-# ustreamer 빌드 및 설치
+# 이제 소스 코드가 복사되었으므로 make가 정상적으로 동작합니다.
 RUN make && make install
 
 # 노출할 포트 설정
