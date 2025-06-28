@@ -1,0 +1,15 @@
+# Auto-generated files/folders.
+**/__pycache__
+**/*.py[cod]
+
+# Test files.
+**/*_test.py
+**/*.test.js
+**/*.bats
+
+/debian-pkg/Dockerfile
+/debian-pkg/releases/
+
+# This note is aimed at the dev team so we don't need to include it in
+# production packages.
+./debian-pkg/opt/tinypilot-privileged/README.md

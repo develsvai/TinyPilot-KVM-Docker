@@ -1,0 +1,31 @@
+version: '3.6'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    depends_on:
+      - ustreamer
+      - tinypilot
+    ports:
+      - 10080:80
+    volumes:
+      - ./nginx:/etc/nginx/templates
+  ustreamer:
+    build:
+      context: ./images/ustreamer/
+    container_name: ustreamer
+    restart: always
+    devices:
+      - /dev/video0:/dev/video0
+  tinypilot:
+    build:
+      context: ./images/tinypilot/
+    container_name: tinypilot
+    restart: always
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+      APP_SETTINGS_FILE: "/opt/tinypil≈ot/config.py"
+    devices:
+      - /dev/hidg0:/dev/hidg0
+      - /dev/hidg1:/dev/hidg1

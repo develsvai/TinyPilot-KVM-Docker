@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Exit script on first failure.
+set -e
+
+# If a .git directory exists, the previous version was installed with the legacy
+# installer, so wipe the install location.
+if [[ -d /opt/tinypilot/.git ]]; then
+  rm -rf /opt/tinypilot
+fi
+
+# Workaround to remove TinyPilot's legacy NGINX config. We can remove this on
+# TinyPilot's next checkpoint release.
+# https://github.com/tiny-pilot/tinypilot-pro/issues/978
+rm -f \
+  /etc/nginx/sites-enabled/tinypilot.conf
+
+#DEBHELPER#

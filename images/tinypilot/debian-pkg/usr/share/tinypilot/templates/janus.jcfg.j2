@@ -1,0 +1,33 @@
+# All available plugins are enabled and loaded from the plugins
+# directory at startup. The default plugins directory is located at:
+# /usr/lib/$(gcc -dumpmachine)/janus/plugins
+plugins: {
+	disable = "libjanus_nosip.so,libjanus_videoroom.so,libjanus_streaming.so,libjanus_sip.so,libjanus_lua.so,libjanus_voicemail.so,libjanus_recordplay.so,libjanus_echotest.so,libjanus_audiobridge.so,libjanus_duktape.so,libjanus_videocall.so,libjanus_textroom.so"
+}
+
+# All available transports are enabled and loaded from the transports directory
+# at startup. The default transports directory is located at:
+# /usr/lib/$(gcc -dumpmachine)/janus/transports
+transports: {
+	disable = "libjanus_rabbitmq.so,libjanus_pfunix.so,libjanus_nanomsg.so,libjanus_http.so,libjanus_mqtt.so"
+}
+
+# All available loggers are enabled and loaded from the loggers directory at
+# startup. The default loggers directory is located at:
+# /usr/lib/$(gcc -dumpmachine)/janus/loggers
+loggers: {
+	disable = "libjanus_jsonlog.so"
+}
+
+{% if janus_stun_server and janus_stun_port -%}
+nat: {
+	# The server value can be either a fully qualified domain name (such as
+	# stun.example.org), or an IP address (IPv4 or IPv6).
+	stun_server = "{{ janus_stun_server }}"
+	# Janus itself doesn’t enforce the port value, and would default to 3478 if
+	# the port number is not given. In order to be independent of this behavior,
+	# and to make the server address more explicit in the UI, we request our users
+	# to always specify both values.
+	stun_port = {{ janus_stun_port }}
+}
+{% endif -%}

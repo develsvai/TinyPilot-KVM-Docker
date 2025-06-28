@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+
+# Standalone executable for running the TinyPilot updater and saving the result
+# to a file. This executable is meant to be run as a systemd one-shot service,
+# launched manually when the user requests an update.
+
+# Ignore pylint complaint that this filename has a dash instead of an
+# underscore.
+# pylint:disable=invalid-name
+
+import argparse
+import logging
+import os
+import subprocess
+import sys
+
+# We’re importing the log package first because it needs to overwrite the
+# app-wide logger class before any other module loads it.
+import log
+import update.launcher
+import update.result
+import update.result_store
+import utc
+
+logger = logging.getLogger(__name__)
+
+_UPDATE_TIMEOUT_SECONDS = 60 * 10
+
+
+def perform_update():
+    result = run_update_script()
+    update.result_store.write(result)
+
+
+def run_update_script():
+    logger.info('Launching update script: %s',
+                update.launcher.UPDATE_SCRIPT_PATH)
+    try:
+        subprocess.run(['sudo', update.launcher.UPDATE_SCRIPT_PATH],
+                       check=True,
+                       timeout=_UPDATE_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        logger.error('Update process timed out')
+        return make_update_result(update_error='The update timed out')
+    except subprocess.CalledProcessError as e:
+        logger.error('Update process terminated with failing exit code: %s',
+                     str(e))
+        return make_update_result(update_error=f'The update failed: {e}')
+
+    logger.info('Update completed successfully')
+    return make_update_result(update_error=None)
+
+
+def make_update_result(update_error):
+    return update.result.Result(error=update_error, timestamp=utc.now())
+
+
+def main(_):
+    root_logger = log.create_root_logger(logging.StreamHandler())
+    root_logger.setLevel(logging.INFO)
+    logger.info('Starting TinyPilot update')
+    perform_update()
+
+
+if __name__ == '__main__':
+    # Ensure that the script doesn't have unnecessary privileges.
+    if os.geteuid() == 0:
+        print("This script doesn't require root privileges.", file=sys.stderr)
+        print('Please re-run as tinypilot:', file=sys.stderr)
+        print('  runuser tinypilot --command',
+              f"'{' '.join(sys.argv)}'",
+              file=sys.stderr)
+        sys.exit(1)
+
+    parser = argparse.ArgumentParser(
+        prog='TinyPilot Update Service',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    main(parser.parse_args())

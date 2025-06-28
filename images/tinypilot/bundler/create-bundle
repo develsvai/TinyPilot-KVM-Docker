@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# Creates a TinyPilot installation bundle from the bundle/ folder.
+#
+# You have to provide the TinyPilot Debian package and place it in the `bundle/`
+# folder. The script fetches all other required dependencies automatically.
+
+# Exit on first error.
+set -e
+
+# Exit on unset variable.
+set -u
+
+# Echo commands before executing them, by default to stderr.
+set -x
+
+# Change directory to repository root.
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+readonly SCRIPT_DIR
+cd "${SCRIPT_DIR}/.."
+
+cd ./bundler
+
+readonly BUNDLE_DIR='bundle'
+readonly OUTPUT_DIR='dist'
+
+# Exclude the AMD64 package from the production bundle.
+rm -f "${BUNDLE_DIR}/tinypilot"*amd64.deb
+
+# Ensure that a TinyPilot Debian package exists.
+if ! ls "${BUNDLE_DIR}/tinypilot"*armhf.deb 1> /dev/null 2>&1; then
+  echo 'Failed to create bundle: no TinyPilot Debian package found.' >&2
+  exit 1
+fi
+
+# Prints the TinyPilot release version as populated in the Debian package. The
+# Debian package stores the version string in a header field of its control
+# file. The header is named: `Tinypilot-Version`.
+print_tinypilot_version() {
+  # Shellcheck incorrectly warns that the `${...}` placeholder in `--showformat`
+  # doesn’t expand, due to the single-quotes. The format string is not meant to
+  # contain a bash variable, though, the placeholder is specific to `dpkg-deb`.
+  # shellcheck disable=SC2016
+  dpkg-deb \
+    --show \
+    --showformat '${Tinypilot-Version}' \
+    "${BUNDLE_DIR}/tinypilot"*armhf.deb
+}
+
+# Compose bundle file name, which consists of these hyphen-separated parts:
+# 1. `tinypilot`
+# 2. The TinyPilot variant: `community` or `pro`
+# 3. A timestamp (which allows lexical sorting of bundles by their file names).
+# 4. The SemVer-compliant TinyPilot version.
+# Examples for bundle names:
+# - `tinypilot-pro-20220620T1713Z-2.4.1.tgz` (Pro)
+# - `tinypilot-community-20220620T1611Z-1.8.0-23+649a6b2.tgz` (Community)
+TIMESTAMP="$(date --iso-8601=minutes | sed 's/[:-]//g' | sed 's/+0000/Z/g')"
+readonly TIMESTAMP
+TINYPILOT_VERSION="$(print_tinypilot_version)"
+readonly TINYPILOT_VERSION
+readonly TINYPILOT_VARIANT='community'
+readonly BUNDLE_FILENAME="tinypilot-${TINYPILOT_VARIANT}-${TIMESTAMP}-${TINYPILOT_VERSION}.tgz"
+
+# Download Janus Bullseye Backports Debian package.
+# Note: before bumping the Janus package version, be sure to compare our Janus
+# systemd config file (debian-pkg/usr/share/tinypilot/janus.service) to that of
+# upstream and verify that the diff is the same as before.
+wget \
+  --directory-prefix="${BUNDLE_DIR}" \
+  http://ftp.us.debian.org/debian/pool/main/j/janus/janus_1.0.1-1~bpo11+1_armhf.deb
+
+# Download uStreamer Debian package.
+wget \
+  --directory-prefix="${BUNDLE_DIR}" \
+  https://github.com/tiny-pilot/ustreamer-debian/releases/download/5.43-20231004144402/ustreamer_5.43-20231004144402_armhf.deb
+
+# Download yq binary
+wget \
+  https://github.com/mikefarah/yq/releases/download/v4.35.1/yq_linux_arm \
+  --output-document="${BUNDLE_DIR}/yq"
+
+# Generate tarball bundle and meta file.
+mkdir -p "${OUTPUT_DIR}"
+ls -lahR "${BUNDLE_DIR}" > "${OUTPUT_DIR}/files.txt"
+tar \
+  --create \
+  --gzip \
+  --file "${OUTPUT_DIR}/${BUNDLE_FILENAME}" \
+  --directory "${BUNDLE_DIR}" \
+  .

@@ -1,0 +1,3 @@
+[submodule "images/ustreamer"]
+	path = images/ustreamer
+	url = https://github.com/pikvm/ustreamer.git

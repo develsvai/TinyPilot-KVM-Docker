@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# Creates a symlink from /opt/tinypilot-privileged/scripts to dev-scripts/mock-scripts
+# to facilitate development on non-TinyPilot systems.
+
+# Exit on first failure.
+set -e
+
+if [[ "${EUID}" -ne 0 ]]; then
+  echo "This script requires root privileges." >&2
+  echo "Please re-run with sudo:" >&2
+  echo "  sudo ${0}" >&2
+  exit 1
+fi
+
+# Echo commands before executing them, by default to stderr.
+set -x
+
+# Exit on unset variable.
+set -u
+
+readonly PRIVILEGED_SCRIPTS_DIR="/opt/tinypilot-privileged/scripts"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+readonly SCRIPT_DIR
+readonly MOCK_SCRIPTS_DIR="${SCRIPT_DIR}/mock-scripts"
+
+# If there's an existing symlink, remove it.
+if [[ -L "${PRIVILEGED_SCRIPTS_DIR}" ]]; then
+  rm "${PRIVILEGED_SCRIPTS_DIR}"
+elif [[ -d "${PRIVILEGED_SCRIPTS_DIR}" ]]; then
+  echo "${PRIVILEGED_SCRIPTS_DIR} exists and is not a symlink" >&2
+  exit 1
+fi
+
+# Create parent folder (in case it doesn’t exist).
+mkdir \
+  -p \
+  "$(dirname "${PRIVILEGED_SCRIPTS_DIR}")"
+
+# Symlink folder with privileged scripts.
+ln -s "${MOCK_SCRIPTS_DIR}" "${PRIVILEGED_SCRIPTS_DIR}"

@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Run tests and static analysis on bash scripts.
+
+# Exit on first failure.
+set -e
+
+# Echo commands before executing them, by default to stderr.
+set -x
+
+# Exit on unset variable.
+set -u
+
+# Run static analysis with shellcheck.
+BASH_SCRIPTS=()
+while read -r filepath; do
+  if head -n 1 "${filepath}" | grep --quiet \
+    --regexp '#!/bin/bash' \
+    --regexp '#!/usr/bin/env bash' \
+    --regexp '#!/usr/sh' \
+    --regexp '#!/usr/bin/env sh' \
+    ; then
+      BASH_SCRIPTS+=("${filepath}")
+  fi
+done < <(git ls-files)
+readonly BASH_SCRIPTS
+shellcheck "${BASH_SCRIPTS[@]}"
+
+# Run bats tests.
+bats \
+  --recursive \
+  scripts/ \
+  debian-pkg/ \
+  dev-scripts/

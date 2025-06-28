@@ -1,0 +1,147 @@
+<template id="overlay-panel-template">
+  <style>
+    @import "css/style.css";
+
+    #panel {
+      position: relative;
+      border: none;
+      width: min(800px, 100%);
+      box-sizing: border-box;
+      margin: 100px auto;
+      max-height: none; /* Unset default max-height from native <dialog> */
+      padding: 2rem;
+      text-align: center;
+      border-radius: var(--border-radius);
+    }
+
+    #panel::backdrop {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    #close-button {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2.3rem;
+      padding: 0;
+      margin: 0.35rem;
+      border: 1px solid black;
+      opacity: 0.55;
+    }
+
+    :host(:not([show-close-button])) #close-button {
+      display: none;
+    }
+
+    #close-button svg {
+      display: block;
+      margin: 0.3rem;
+    }
+
+    :host([variant="default"]) #panel,
+    :host([variant=""]) #panel,
+    :host(:not([variant])) #panel {
+      border-top: none;
+      background-color: var(--brand-creme-light);
+    }
+
+    :host([variant="danger"]) #panel {
+      border-top: 0.4rem solid var(--brand-red-bright);
+      background-color: var(--brand-red-background);
+    }
+  </style>
+
+  <dialog id="panel">
+    <button id="close-button" title="Close Overlay">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+        <path
+          fill="#fff"
+          d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"
+        />
+      </svg>
+    </button>
+    <slot id="dialog-slot"></slot>
+  </dialog>
+</template>
+
+<script type="module">
+  import { DialogClosedEvent } from "/js/events.js";
+
+  (function () {
+    const template = document.querySelector("#overlay-panel-template");
+
+    customElements.define(
+      "overlay-panel",
+      class extends HTMLElement {
+        connectedCallback() {
+          this.attachShadow({ mode: "open" }).appendChild(
+            template.content.cloneNode(true)
+          );
+          this._elements = {
+            dialog: this.shadowRoot.querySelector("#panel"),
+          };
+          this.show = this.show.bind(this);
+          this.shadowRoot.addEventListener("dialog-closed", () =>
+            this.show(false)
+          );
+          this.shadowRoot.addEventListener("dialog-failed", () =>
+            // This event is further handled in `app.js`.
+            this.show(false)
+          );
+
+          this.setAttribute("show-close-button", "");
+          this.shadowRoot.addEventListener(
+            "dialog-close-state-changed",
+            (e) => {
+              if (e.detail.canBeClosed) {
+                this.setAttribute("show-close-button", "");
+              } else {
+                this.removeAttribute("show-close-button");
+              }
+            }
+          );
+          // Dispatch dialog-closed event into slotted element(s), to allow the
+          // dialog to react to it if need be (e.g., for performing clean-ups).
+          // In theory, there could be multiple elements in the slot, so they
+          // all need to receive the close event – hence the `forEach`. In
+          // reality, we usually only slot a single dialog element, though. It
+          // shouldn’t matter anyway, since the dialog-closed event handler is
+          // idempotent.
+          this.shadowRoot
+            .querySelector("#close-button")
+            .addEventListener("click", () =>
+              this.shadowRoot
+                .querySelector("#dialog-slot")
+                .assignedElements()
+                .forEach((el) => el.dispatchEvent(new DialogClosedEvent()))
+            );
+          // Prevent auto-close behavior of native <dialog> if the user presses
+          // the ESC key.
+          this._elements.dialog.addEventListener("cancel", (evt) => {
+            evt.preventDefault();
+          });
+        }
+
+        show(isShown = true) {
+          if (isShown) {
+            this._elements.dialog.showModal();
+          } else {
+            this._elements.dialog.close();
+          }
+          this.dispatchEvent(
+            new CustomEvent("overlay-toggled", {
+              detail: { isShown },
+              bubbles: true,
+              composed: true,
+            })
+          );
+        }
+
+        isShown() {
+          return this._elements.dialog.open;
+        }
+      }
+    );
+  })();
+</script>

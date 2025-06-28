@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+# Verify the integrity of the TinyPilot installation bundle.
+
+# Exit script on first failure.
+set -e
+
+# Echo commands before executing them, by default to stderr.
+set -x
+
+# Exit on unset variable.
+set -u
+
+BUNDLE_FILE="$(ls dist/tinypilot*.tgz)"
+readonly BUNDLE_FILE
+BUNDLE_DIR="$(mktemp --tmpdir=/var/tmp --directory)"
+readonly BUNDLE_DIR
+
+# Check bundle size.
+BUNDLE_SIZE_BYTES="$(wc -c <"${BUNDLE_FILE}")"
+if [[ "${BUNDLE_SIZE_BYTES}" -eq 0 ]]; then
+  >&2 echo 'Bundle size is zero.'
+  exit 1
+fi
+if (( "${BUNDLE_SIZE_BYTES}" > 10000000 )); then
+  >&2 echo 'Bundle size is larger than 10mb.'
+  exit 1
+fi
+
+# Extract tarball to temporary directory.
+tar \
+  --gunzip \
+  --extract \
+  --file "${BUNDLE_FILE}" \
+  --directory "${BUNDLE_DIR}"
+pushd "${BUNDLE_DIR}"
+
+# Check that install script exists.
+if [[ ! -f install ]]; then
+  >&2 echo 'Bundle is missing install script.'
+  exit 1
+fi
+
+# List Debian package contents.
+dpkg --contents tinypilot*armhf.deb

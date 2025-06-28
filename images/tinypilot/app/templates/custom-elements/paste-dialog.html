@@ -1,0 +1,163 @@
+<template id="paste-dialog-template">
+  <style>
+    @import "css/style.css";
+    @import "css/toggle.css";
+
+    #paste-area {
+      display: block;
+      width: 100%;
+      min-height: 15rem;
+      resize: vertical;
+      box-sizing: border-box;
+      padding: 0.25rem 0.5rem;
+      background-color: white;
+      border: 1px solid var(--brand-metallic-dark);
+      border-radius: var(--border-radius);
+    }
+
+    :host([mask-input=""]) #paste-area {
+      /* We mask the input text by making it look redacted. This is kind of a
+         workaround, since there is no such thing as `type=password` for
+         <textarea> elements, and <input> elements don’t support multiline
+         values.
+         The strike-through thickness must be so that even “tall”
+         characters are fully concealed, e.g., `Ü` (high) or `p` (low). It
+         should not, however, merge with adjacent lines.
+         The caret color is so that it differentiates itself in both contexts,
+         i.e. against redacted text and against the white background. */
+      color: #333;
+      text-decoration: line-through;
+      text-decoration-thickness: 1.25em;
+      caret-color: #999;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      margin: 0.5em;
+    }
+
+    .toggle-container label {
+      margin-left: 0.5em;
+    }
+
+    .hint {
+      margin: 0.5em 0 1em 0;
+      color: #333;
+      font-size: 0.9em;
+    }
+  </style>
+  <h3>Paste Text</h3>
+  <div class="toggle-container">
+    Hide Characters
+    <label class="toggle">
+      <input type="checkbox" id="mask-input" />
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+  <textarea
+    id="paste-area"
+    class="monospace"
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"
+  ></textarea>
+  <div class="hint">
+    The target system must have an <span class="monospace">en-US</span> or
+    <span class="monospace">en-GB</span> keyboard layout.
+  </div>
+  <button id="confirm-btn" class="btn-success">Paste</button>
+  <button id="cancel-btn">Close</button>
+</template>
+
+<script type="module">
+  import { DialogClosedEvent, DialogFailedEvent } from "/js/events.js";
+  import { pasteText } from "/js/controllers.js";
+  import { isPasteAreaMasked, setPasteAreaMasked } from "/js/settings.js";
+
+  (function () {
+    const template = document.querySelector("#paste-dialog-template");
+
+    customElements.define(
+      "paste-dialog",
+      class extends HTMLElement {
+        connectedCallback() {
+          this.attachShadow({ mode: "open" }).appendChild(
+            template.content.cloneNode(true)
+          );
+          this._elements = {
+            pasteArea: this.shadowRoot.querySelector("#paste-area"),
+            confirmButton: this.shadowRoot.querySelector("#confirm-btn"),
+            cancelButton: this.shadowRoot.querySelector("#cancel-btn"),
+            maskInputButton: this.shadowRoot.querySelector("#mask-input"),
+          };
+          this._elements.pasteArea.addEventListener("input", () =>
+            this._elements.confirmButton.toggleAttribute(
+              "disabled",
+              this._elements.pasteArea.value.length === 0
+            )
+          );
+          this._elements.pasteArea.addEventListener("keydown", (evt) => {
+            if (evt.code === "Enter" && !evt.shiftKey) {
+              evt.preventDefault();
+              this._elements.confirmButton.click();
+              // Prevent this keystroke from being forwarded to the target system.
+              evt.stopPropagation();
+            }
+          });
+          this._elements.confirmButton.addEventListener("click", () =>
+            this._handleConfirmPaste()
+          );
+          this._elements.cancelButton.addEventListener("click", () =>
+            this._closeDialog()
+          );
+          this._elements.maskInputButton.addEventListener("input", (event) => {
+            this._onToggleMaskInput(event.target.checked);
+          });
+        }
+
+        initialize() {
+          this.toggleAttribute("mask-input", isPasteAreaMasked());
+          this._elements.maskInputButton.checked = isPasteAreaMasked();
+          this._elements.pasteArea.value = "";
+          this._elements.pasteArea.focus();
+          this._elements.confirmButton.toggleAttribute("disabled", true);
+        }
+
+        _handleConfirmPaste() {
+          const text = this._elements.pasteArea.value;
+          const language = this._browserLanguage();
+          pasteText(text, language)
+            .then(() => this._closeDialog())
+            .catch((error) =>
+              this.dispatchEvent(
+                new DialogFailedEvent({
+                  title: "Failed to Paste Text",
+                  details: error,
+                })
+              )
+            );
+        }
+
+        _browserLanguage() {
+          if (navigator.languages) {
+            return navigator.languages[0];
+          }
+          return navigator.language || navigator.userLanguage;
+        }
+
+        _closeDialog() {
+          this.dispatchEvent(new DialogClosedEvent());
+        }
+
+        _onToggleMaskInput(isMasked) {
+          setPasteAreaMasked(isMasked);
+          this.toggleAttribute("mask-input", isMasked);
+          this._elements.pasteArea.focus();
+        }
+      }
+    );
+  })();
+</script>

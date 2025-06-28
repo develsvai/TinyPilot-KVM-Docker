@@ -1,0 +1,309 @@
+version: 2.1
+executors:
+  ubuntu:
+    docker:
+      - image: cimg/base:2024.02
+  python:
+    docker:
+      - image: cimg/python:3.9.17
+  node:
+    docker:
+      - image: cimg/node:18.16.1
+commands:
+  check_project_env_vars:
+    steps:
+      - run:
+          name: Check for environment variables
+          # These environment variables can either come from the CircleCI
+          # project settings or from the CircleCI context. The latter takes
+          # precedence.
+          # See: https://circleci.com/docs/env-vars/#order-of-precedence
+          command: |
+            if [[ -z "${BACKBLAZE_KEY}"
+               || -z "${BACKBLAZE_KEY_ID}"
+               || -z "${UPLOAD_BUCKET}"
+            ]]; then
+              >&2 echo 'Missing environment variables'
+              exit 1
+            fi
+jobs:
+  check_whitespace:
+    executor: ubuntu
+    steps:
+      - checkout
+      - run:
+          name: Check for trailing whitespace
+          command: ./dev-scripts/check-trailing-whitespace
+      - run:
+          name: Check that all text files end in a trailing newline
+          command: ./dev-scripts/check-trailing-newline
+  check_bash:
+    executor: ubuntu
+    steps:
+      - checkout
+      - run:
+          name: Install BATS
+          command: |
+            set -eux
+            git clone --branch v1.10.0 --depth 1 \
+              https://github.com/bats-core/bats-core.git
+            cd ./bats-core
+            sudo ./install.sh /usr
+            bats --version
+      - run:
+          name: Install ShellCheck
+          command: |
+            set -eux
+            readonly SHELLCHECK_VERSION='v0.9.0'
+            wget --quiet --output-document - \
+              "https://github.com/koalaman/shellcheck/releases/download/${SHELLCHECK_VERSION}/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" |
+              tar --extract --xz --verbose
+            cd "./shellcheck-${SHELLCHECK_VERSION}"
+            sudo cp shellcheck /usr/bin
+            shellcheck --version
+      - run:
+          name: Run tests and static analysis on bash scripts
+          command: ./dev-scripts/check-bash
+  check_privilege_guard:
+    executor: ubuntu
+    steps:
+      - checkout
+      - run:
+          name: Check for unnecessary privilege escalation
+          command: ./dev-scripts/check-privilege-guard
+  check_sql:
+    executor: python
+    steps:
+      - checkout
+      - run:
+          name: Create virtual environment
+          command: python3 -m venv venv
+      - run:
+          name: Install requirements and run lint script
+          command: |
+            . venv/bin/activate
+            pip install --requirement dev_requirements.txt
+            ./dev-scripts/check-sql
+  check_style:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Check code style
+          command: ./dev-scripts/check-style
+  decode_edid:
+    executor: python
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Install edid-decode
+          command: sudo apt-get update && sudo apt-get install --yes edid-decode
+      - run:
+          name: Create virtual environment
+          command: python3 -m venv venv
+      - run:
+          name: Install requirements and decode the EDID
+          command: |
+            . venv/bin/activate
+            pip install --requirement requirements.txt
+            ./dev-scripts/decode-edid
+  check_python:
+    executor: python
+    steps:
+      - checkout
+      - run:
+          name: Create virtual environment
+          command: python3 -m venv venv
+      - run:
+          name: Install requirements and run build script
+          command: |
+            . venv/bin/activate
+            pip install --requirement dev_requirements.txt
+            ./dev-scripts/check-python
+  check_javascript:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run build script
+          command: ./dev-scripts/check-javascript
+  run_e2e_tests:
+    docker:
+      # To run tests against the dev server, Playwright needs a CircleCI image
+      # with Python, Node, and a browser. While the check_python and
+      # check_javascript steps use python-3.9.17 and node-18.16.1 respectively,
+      # the CircleCI image with *both* python and node in the closest versions
+      # is python:3.9.17-browsers. It has python-3.9.17 and node-18.16.0.
+      #
+      # See: https://circleci.com/developer/images/image/cimg/python#tagging-scheme
+      - image: cimg/python:3.9.17-browsers
+    environment:
+      NODE_ENV: development
+    steps:
+      - checkout
+      - run:
+          name: Create virtual environment
+          command: python3 -m venv venv
+      - run:
+          name: Install python requirements
+          command: |
+            . venv/bin/activate
+            pip install --requirement dev_requirements.txt
+      - run:
+          name: Install node dependencies
+          command: npm install
+      - run:
+          name: Enable mock scripts
+          command: sudo ./dev-scripts/enable-mock-scripts
+      - run:
+          name: Enable passwordless sudo
+          command: sudo ./dev-scripts/enable-passwordless-sudo
+      - run:
+          name: Run playwright tests
+          command: ./dev-scripts/run-e2e-tests
+      - store_artifacts:
+          path: playwright-report
+      - store_artifacts:
+          path: e2e-results
+  build_debian_package:
+    executor: ubuntu
+    resource_class: arm.medium
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build Debian package
+          command: ./dev-scripts/build-debian-pkg linux/arm/v7
+      - run:
+          name: Print Debian package contents
+          command: dpkg --contents debian-pkg/releases/tinypilot*.deb
+      - persist_to_workspace:
+          root: ./debian-pkg/releases
+          paths:
+            - "*.deb"
+  check_debian_package:
+    executor: ubuntu
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Update apt packages
+          command: sudo apt-get update
+      - run:
+          name: Install lintian
+          command: sudo apt-get install -y lintian=2.114.0ubuntu1
+      - run:
+          name: Print lintian version
+          command: lintian --version
+      - run:
+          name: Run lintian
+          command: ./dev-scripts/check-debian-pkg
+  build_bundle:
+    executor: python
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./bundler/bundle/
+      - run:
+          name: Create the bundle
+          command: ./bundler/create-bundle
+      - store_artifacts:
+          path: bundler/dist/
+      - persist_to_workspace:
+          root: ./bundler
+          paths:
+            - ./dist
+  verify_bundle:
+    executor: ubuntu
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Verify bundle integrity
+          command: ./bundler/verify-bundle
+  upload_bundle:
+    executor: ubuntu
+    environment:
+      UPLOAD_PREFIX: community
+    steps:
+      - check_project_env_vars
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          # The LATEST file contains the filename of the latest TinyPilot
+          # bundle.
+          name: Create LATEST file
+          command: cd dist && ls tinypilot*.tgz | tee LATEST
+      - run:
+          name: Setup Backblaze CLI tool
+          command: ./bundler/setup-b2-linux
+      - run:
+          name: Upload bundle to Backblaze
+          command: |
+            set -u
+            BUNDLE_FILENAME="$(cat dist/LATEST)"
+            ./b2 upload-file \
+              --noProgress \
+              "${UPLOAD_BUCKET}" \
+              "dist/${BUNDLE_FILENAME}" \
+              "${UPLOAD_PREFIX}/${BUNDLE_FILENAME}" \
+              > /dev/null # Hide output to avoid exposing bucket details in CI.
+      - run:
+          name: Update LATEST file to Backblaze
+          command: |
+            set -u
+            ./b2 upload-file \
+              --noProgress \
+              "${UPLOAD_BUCKET}" \
+              dist/LATEST \
+              "${UPLOAD_PREFIX}/version-index/LATEST" \
+              > /dev/null # Hide output to avoid exposing bucket details in CI.
+      - run:
+          name: Print friendly upload URL
+          command: |
+            set -u
+            BUNDLE_FILENAME="$(cat dist/LATEST)"
+            echo "Upload complete to https://bundles.tinypilotkvm.com/${UPLOAD_PREFIX}/${BUNDLE_FILENAME}"
+workflows:
+  test:
+    jobs:
+      - check_whitespace
+      - check_bash
+      - check_privilege_guard
+      - check_sql
+      - check_style
+      - decode_edid
+      - check_python
+      - check_javascript
+      - run_e2e_tests
+      - build_debian_package
+      - check_debian_package:
+          requires:
+            - build_debian_package
+      - build_bundle:
+          requires:
+            - build_debian_package
+      - verify_bundle:
+          requires:
+            - build_bundle
+      - upload_bundle:
+          context:
+            - production-tinypilot-community
+          requires:
+            - verify_bundle
+          # Uploading a new bundle affects Gatekeeper's view of the latest
+          # bundle available, so we should only do this on master.
+          filters:
+            branches:
+              only: master
