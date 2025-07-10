@@ -13,16 +13,16 @@ services:
       - ./nginx/kvn.conf.template:/etc/nginx/nginx.conf  # nginx 설정 파일을 직접 nginx.conf로 마운트
 
   ustreamer:
-    build:
-      context: ./images/ustreamer/
-    #image: haru2/ustreamer-docker:latest
+    #build:
+      #context: ./images/ustreamer/
+    image: haru2/ustreamer-docker:latest
     container_name: ustreamer
     restart: always
     ports:
       - "8001:8001"
     devices:
       - /dev/video0:/dev/video0
-    command: ["ustreamer", "--host=0.0.0.0", "--resolution=2560x1600", "--port=8001", "/dev/video0"] #1280x720
+    command: ["ustreamer", "--host=0.0.0.0", "--resolution=1920x1080","--encoder=hw", "--format=mjpeg", "--port=8001", "/dev/video0"] #1280x720
 
   tinypilot:
    # build:
