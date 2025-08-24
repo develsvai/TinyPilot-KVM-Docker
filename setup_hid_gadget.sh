@@ -12,6 +12,12 @@ GADGET_DIR="/sys/kernel/config/usb_gadget/g1"
 echo "Loading composite module..."
 sudo modprobe libcomposite
 
+# --- 0. 이미 /dev/hidg* 존재 시 바로 종료 ---
+if [ -e /dev/hidg0 ] && [ -e /dev/hidg1 ]; then
+  echo "✅ HID gadget devices already exist (/dev/hidg0, /dev/hidg1). Skipping setup."
+  exit 0
+fi
+
 # --- 1. 기존 설정 정리 ---
 if [ -d "$GADGET_DIR" ]; then
   echo "Removing existing gadget configuration..."
