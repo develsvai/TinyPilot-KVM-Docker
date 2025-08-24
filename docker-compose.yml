@@ -15,7 +15,7 @@ services:
   ustreamer:
     #build:
       #context: ./images/ustreamer/
-    image: haru2/ustreamer-docker:latest
+    image: harbor.192.168.0.110.nip.io/tinypilot/ustreamer:latest
     container_name: ustreamer
     restart: always
     ports:
@@ -27,7 +27,7 @@ services:
   tinypilot:
    # build:
    #   context: ./images/tinypilot/
-    image: haru2/tinypilot-docker:latest
+    image: harbor.192.168.0.110.nip.io/tinypilot/tinypilot:latest
     container_name: tinypilot
     restart: always
     ports:
@@ -42,8 +42,9 @@ services:
 
   # --- 추가된 Tailscale 서비스 ---
   tailscale:
-    build:
-      context: ./images/tailscale  # Dockerfile이 있는 위치를 지정
+   # build:
+   #   context: ./images/tailscale  # Dockerfile이 있는 위치를 지정
+    image: harbor.192.168.0.110.nip.io/tinypilot/tailscale:latest
     container_name: tailscale
     restart: always
     hostname: ${TS_HOSTNAME}         # 컨테이너의 호스트 이름을 설정 (start.sh와 일치)
