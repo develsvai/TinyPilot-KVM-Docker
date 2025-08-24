@@ -9,7 +9,7 @@ RUN rm /etc/nginx/http.d/default.conf
 
 # Copy our custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY tailscale_nginx.conf /etc/nginx/conf.d/tailscale_nginx.conf
+COPY tailscale_tinypilot_nginx_proxy.conf /etc/nginx/conf.d/tailscale_tinypilot_nginx_proxy.conf
 
 # Copy and set permissions for the startup script
 COPY start.sh /start.sh
