@@ -1,16 +1,16 @@
 version: '3.6'
 services:
-  nginx:
-    image: nginx
-    container_name: nginx
-    restart: always
-    depends_on:
-      - ustreamer
-      - tinypilot
-    ports:
-      - "8900:8900"
-    volumes:
-      - ./nginx/kvn.conf.template:/etc/nginx/nginx.conf  # nginx 설정 파일을 직접 nginx.conf로 마운트
+#  nginx:
+#    image: nginx
+#    container_name: nginx
+#    restart: always
+#    depends_on:
+#      - ustreamer
+#      - tinypilot
+#    ports:
+#      - "8900:8900"
+#    volumes:
+#      - ./nginx-ingress/tinypilot.conf:/etc/nginx/nginx.conf  # nginx 설정 파일을 직접 nginx.conf로 마운트
 
   ustreamer:
     #build:
