@@ -39,3 +39,20 @@ services:
       - ./config/config.py:/opt/tinypilot/config.py  # Tinypilot 설정 파일 마운트
 
     command: ["python3", "/opt/tinypilot/app/main.py"]
+
+  # --- 추가된 Tailscale 서비스 ---
+  tailscale:
+    build:
+      context: ./images/tailscale  # Dockerfile이 있는 위치를 지정
+    container_name: tailscale
+    restart: always
+    hostname: ${TS_HOSTNAME}         # 컨테이너의 호스트 이름을 설정 (start.sh와 일치)
+    # Tailscale이 작동하기 위해 필수적인 설정입니다.
+    devices:
+      - "/dev/net/tun:/dev/net/tun"  # 가상 네트워크 인터페이스 사용을 위해 필요
+    cap_add:
+      - net_admin                  # 네트워크 관리자 권한 부여
+      - sys_module                 # 시스템 모듈 관련 권한 부여
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_HOSTNAME=${TS_HOSTNAME}

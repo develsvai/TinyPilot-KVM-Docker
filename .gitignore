@@ -1,0 +1,14 @@
+# 환경 변수 파일
+.env
+
+# Docker 관련
+*.log
+*.pid
+
+# Python 관련 (Tinypilot도 파이썬 기반이라면)
+__pycache__/
+*.pyc
+
+# 기타 IDE/에디터 설정 파일
+.vscode/
+.idea/
