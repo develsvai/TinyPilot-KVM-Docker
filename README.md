@@ -9,15 +9,16 @@
 - 서비스 전체를 **Docker Compose**로 오케스트레이션
 - 시스템 하드웨어 수준에서의 **호환성 문제 해결 및 디버깅 과정 포함**
 
-> 🔗 공식 저장소: TinyPilot GitHub  
-> 📘 관련 포스트: KVM USB HID Gadget 디버깅 과정
+> 🔗 공식 저장소: https://github.com/develsvai/TinyPilot-KVM-Docker
+>
+> 📘 관련 포스트: https://developsvai5096.tistory.com/45
 
 ---
 
 ## 2. 최종 아키텍처
 
-이 프로젝트는 TinyPilot을 이루는 주요 부품들을 각각 다른 Docker 컨테이너에 나눠 담고,  
-Nginx를 중간에서 길잡이처럼 써서 전체 서비스를 하나로 합치는 구조입니다.
+이 프로젝트는 TinyPilot을 이루는 주요 서비스들을 각각 다른 Docker 컨테이너에 나눠 담고,  
+Nginx를 통해 전체 서비스를 하나로 합치는 구조입니다.
 
 - **Nginx**: 모든 요청을 제일 먼저 받는 문지기 역할
 - **TinyPilot 컨테이너**: 키보드/마우스 입력 처리 및 UI 제공
@@ -48,6 +49,7 @@ Nginx를 중간에서 길잡이처럼 써서 전체 서비스를 하나로 합�
 
 ### 4.1 TinyPilot 웹 서버
 
+- web ui 제공
 - Flask 기반
 - 키보드/마우스 입력 처리
 - `/dev/hidg*` 장치 파일에 직접 이벤트 기록
@@ -87,8 +89,13 @@ Nginx를 중간에서 길잡이처럼 써서 전체 서비스를 하나로 합�
 - Docker / Docker Compose 설치
 - 비디오 캡처 카드 연결
 
+### 실행
+```bash 
+sudo sh ./runsh
+```
+
 ### 🛠️ 레포지토리 클론
 
 ```bash
-git clone <Your-Repo-URL>
-cd <Your-Repo-Directory>
+https://github.com/develsvai/TinyPilot-KVM-Docker.git
+```
