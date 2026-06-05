@@ -36,6 +36,7 @@ FROM ubuntu:22.04
 # 런타임에만 필요한 라이브러리
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libevent-2.1-7 \
+    libevent-pthreads-2.1-7 \
     libjpeg-turbo8 \
     libbsd0 \
     curl \
