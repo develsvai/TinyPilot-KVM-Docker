@@ -63,9 +63,34 @@
         mode: "0600"
       no_log: true
 
+    - name: Check Docker access as deployment user
+      ansible.builtin.command:
+        cmd: docker info
+      register: docker_access
+      changed_when: false
+      failed_when: false
+
+    - name: Check Docker access through passwordless sudo
+      ansible.builtin.command:
+        cmd: sudo -n docker info
+      register: sudo_docker_access
+      changed_when: false
+      failed_when: false
+      when: docker_access.rc != 0
+
+    - name: Select Docker CLI for registry login
+      ansible.builtin.set_fact:
+        docker_cli: "{{ 'docker' if docker_access.rc == 0 else 'sudo -n docker' }}"
+
+    - name: Validate Docker access
+      ansible.builtin.assert:
+        that:
+          - docker_access.rc == 0 or sudo_docker_access.rc == 0
+        fail_msg: "Docker is not accessible as the deployment user or through passwordless sudo."
+
     - name: Login to Harbor on bastion
       ansible.builtin.command:
-        cmd: "docker login {{ harbor_registry }} --username {{ harbor_username }} --password-stdin"
+        cmd: "{{ docker_cli }} login {{ harbor_registry }} --username {{ harbor_username }} --password-stdin"
         stdin: "{{ harbor_password }}"
       when:
         - harbor_username | length > 0

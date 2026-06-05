@@ -9,16 +9,32 @@ if [ ! -f ".env" ]; then
   exit 1
 fi
 
-if command -v docker-compose >/dev/null 2>&1; then
-  COMPOSE=(docker-compose)
-else
-  COMPOSE=(docker compose)
-fi
-
 if [ "$(id -u)" -eq 0 ]; then
   SUDO=()
+elif sudo -n true >/dev/null 2>&1; then
+  SUDO=(sudo -n)
 else
-  SUDO=(sudo)
+  echo "Error: passwordless sudo is required for HID gadget setup." >&2
+  exit 1
+fi
+
+if docker info >/dev/null 2>&1; then
+  DOCKER=(docker)
+elif "${SUDO[@]}" docker info >/dev/null 2>&1; then
+  DOCKER=("${SUDO[@]}" docker)
+else
+  echo "Error: Docker is not accessible as the deployment user or through sudo." >&2
+  exit 1
+fi
+
+if command -v docker-compose >/dev/null 2>&1; then
+  if [ "${DOCKER[0]}" = "docker" ]; then
+    COMPOSE=(docker-compose)
+  else
+    COMPOSE=("${SUDO[@]}" docker-compose)
+  fi
+else
+  COMPOSE=("${DOCKER[@]}" compose)
 fi
 
 echo ">> Preparing HID gadget devices..."
