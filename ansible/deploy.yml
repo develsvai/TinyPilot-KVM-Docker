@@ -1,0 +1,85 @@
+---
+- name: Deploy TinyPilot KVM Docker stack
+  hosts: tinypilot_bastion
+  gather_facts: false
+
+  vars:
+    deploy_dir: "{{ lookup('env', 'DEPLOY_DIR') | default('/home/hongyongjae/TinyPilot-KVM-Docker', true) }}"
+    harbor_registry: "{{ lookup('env', 'HARBOR_REGISTRY') | default('harbor.192.168.0.110.nip.io', true) }}"
+    harbor_project: "{{ lookup('env', 'HARBOR_PROJECT') | default('tinypilot', true) }}"
+    harbor_username: "{{ lookup('env', 'HARBOR_USER') | default('', true) }}"
+    harbor_password: "{{ lookup('env', 'HARBOR_PASSWORD') | default('', true) }}"
+    image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('latest', true) }}"
+    tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') | default('', true) }}"
+    tailscale_hostname: "{{ lookup('env', 'TS_HOSTNAME') | default('Tinypilot', true) }}"
+    tailscale_serve_port: "{{ lookup('env', 'TS_SERVE_PORT') | default('80', true) }}"
+    project_root: "{{ playbook_dir }}/.."
+
+  tasks:
+    - name: Validate required deployment values
+      ansible.builtin.assert:
+        that:
+          - image_tag | length > 0
+          - harbor_registry | length > 0
+          - harbor_project | length > 0
+        fail_msg: "Missing one of IMAGE_TAG, HARBOR_REGISTRY, or HARBOR_PROJECT."
+
+    - name: Create deployment directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ deploy_dir }}"
+        - "{{ deploy_dir }}/config"
+        - "{{ deploy_dir }}/deploy"
+
+    - name: Copy compose file
+      ansible.builtin.copy:
+        src: "{{ project_root }}/docker-compose.yml"
+        dest: "{{ deploy_dir }}/docker-compose.yml"
+        mode: "0644"
+
+    - name: Copy runtime scripts
+      ansible.builtin.copy:
+        src: "{{ project_root }}/{{ item }}"
+        dest: "{{ deploy_dir }}/{{ item }}"
+        mode: "0755"
+      loop:
+        - run.sh
+        - setup_hid_gadget.sh
+        - deploy/bastion-deploy.sh
+
+    - name: Copy TinyPilot config
+      ansible.builtin.copy:
+        src: "{{ project_root }}/config/config.py"
+        dest: "{{ deploy_dir }}/config/config.py"
+        mode: "0644"
+
+    - name: Render compose environment
+      ansible.builtin.template:
+        src: env.j2
+        dest: "{{ deploy_dir }}/.env"
+        mode: "0600"
+      no_log: true
+
+    - name: Login to Harbor on bastion
+      ansible.builtin.command:
+        cmd: "docker login {{ harbor_registry }} --username {{ harbor_username }} --password-stdin"
+        stdin: "{{ harbor_password }}"
+      when:
+        - harbor_username | length > 0
+        - harbor_password | length > 0
+      changed_when: false
+      no_log: true
+
+    - name: Deploy compose stack
+      ansible.builtin.command:
+        cmd: ./deploy/bastion-deploy.sh
+        chdir: "{{ deploy_dir }}"
+      register: deploy_result
+      changed_when: "'Applying compose deployment' in deploy_result.stdout"
+
+    - name: Show deployment output
+      ansible.builtin.debug:
+        var: deploy_result.stdout_lines

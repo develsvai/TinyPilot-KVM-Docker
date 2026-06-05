@@ -1,14 +1,53 @@
-# 환경 변수 파일
+# Environment and secrets
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
 
-# Docker 관련
-*.log
-*.pid
+# OS files
+.DS_Store
+Thumbs.db
 
-# Python 관련 (Tinypilot도 파이썬 기반이라면)
-__pycache__/
-*.pyc
-
-# 기타 IDE/에디터 설정 파일
+# Editor and IDE files
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# Logs and runtime files
+*.log
+*.pid
+*.out
+build.log
+image_sizes.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker / Compose local overrides
+docker-compose.override.yml
+compose.override.yml
+
+# Ansible local inventory and cache
+ansible/inventory.ci.ini
+*.retry
+
+# Jenkins local artifacts
+jenkins/*.bak

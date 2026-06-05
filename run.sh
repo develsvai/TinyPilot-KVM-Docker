@@ -10,6 +10,12 @@ else
 fi
 
 echo "=== [2/2] Docker Compose 실행 ==="
-docker-compose up -d --remove-orphans
+if command -v docker-compose >/dev/null 2>&1; then
+    COMPOSE=(docker-compose)
+else
+    COMPOSE=(docker compose)
+fi
+
+"${COMPOSE[@]}" up -d --remove-orphans
 
 echo "✅ 배포 완료!"

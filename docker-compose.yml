@@ -15,7 +15,7 @@ services:
   ustreamer:
     #build:
       #context: ./images/ustreamer/
-    image: harbor.192.168.0.110.nip.io/tinypilot/ustreamer:latest
+    image: ${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/ustreamer:${IMAGE_TAG:-latest}
     container_name: ustreamer
     restart: always
     ports:
@@ -27,7 +27,7 @@ services:
   tinypilot:
    # build:
    #   context: ./images/tinypilot/
-    image: harbor.192.168.0.110.nip.io/tinypilot/tinypilot:latest
+    image: ${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/tinypilot:${IMAGE_TAG:-latest}
     container_name: tinypilot
     restart: always
     ports:
@@ -37,6 +37,7 @@ services:
      - /dev/hidg1:/dev/hidg1
     volumes:
       - ./config/config.py:/opt/tinypilot/config.py  # Tinypilot 설정 파일 마운트
+      - tinypilot-home:/home/tinypilot
 
     command: ["python3", "/opt/tinypilot/app/main.py"]
 
@@ -44,7 +45,7 @@ services:
   tailscale:
    # build:
    #   context: ./images/tailscale  # Dockerfile이 있는 위치를 지정
-    image: harbor.192.168.0.110.nip.io/tinypilot/tailscale:latest
+    image: ${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/tailscale:${IMAGE_TAG:-latest}
     container_name: tailscale
     restart: always
     hostname: ${TS_HOSTNAME}         # 컨테이너의 호스트 이름을 설정 (start.sh와 일치)
@@ -57,3 +58,10 @@ services:
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_HOSTNAME=${TS_HOSTNAME}
+      - TS_SERVE_PORT=${TS_SERVE_PORT:-80}
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+
+volumes:
+  tinypilot-home:
+  tailscale-state:
