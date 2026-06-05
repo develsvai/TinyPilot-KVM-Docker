@@ -26,7 +26,15 @@ ansible/
 
 deploy/
   bastion-deploy.sh
+
+tools/
+  ansible-runner/
+    Dockerfile
 ```
+
+Jenkins에서는 `tools/ansible-runner/Dockerfile`로 작은 Ansible 실행 이미지를 만들고,
+배포 stage에서 해당 컨테이너 안에서 `ansible-playbook`을 실행한다.
+따라서 Jenkins agent에는 `ansible-playbook`을 직접 설치하지 않아도 된다.
 
 ## 배포 입력값
 

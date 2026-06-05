@@ -65,12 +65,20 @@ pipeline {
                             -t "$HARBOR_REGISTRY/$HARBOR_PROJECT/tailscale:latest" \
                             images/tailscale
 
+                        docker build \
+                            -f tools/ansible-runner/Dockerfile \
+                            -t "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:$IMAGE_TAG" \
+                            -t "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:latest" \
+                            tools/ansible-runner
+
                         docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/tinypilot:$IMAGE_TAG"
                         docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/tinypilot:latest"
                         docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/ustreamer:$IMAGE_TAG"
                         docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/ustreamer:latest"
                         docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/tailscale:$IMAGE_TAG"
                         docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/tailscale:latest"
+                        docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:$IMAGE_TAG"
+                        docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:latest"
                     '''
                 }
             }
@@ -95,18 +103,35 @@ pipeline {
                         sh '''
                             set -eu
 
-                            ansible-playbook --version
+                            docker run --rm \
+                                -e ANSIBLE_HOST_KEY_CHECKING=False \
+                                -e ANSIBLE_PRIVATE_KEY_FILE=/tmp/bastion_key \
+                                -e BASTION_HOST \
+                                -e BASTION_USER \
+                                -e DEPLOY_DIR \
+                                -e HARBOR_REGISTRY \
+                                -e HARBOR_PROJECT \
+                                -e HARBOR_USER \
+                                -e HARBOR_PASSWORD \
+                                -e IMAGE_TAG \
+                                -e TAILSCALE_KEY \
+                                -e TS_HOSTNAME \
+                                -e TS_SERVE_PORT \
+                                -v "$PWD:/workspace" \
+                                -v "$BASTION_SSH_KEY:/tmp/bastion_key:ro" \
+                                -w /workspace \
+                                "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:$IMAGE_TAG" \
+                                sh -c '
+                                    set -eu
 
-                            cat > ansible/inventory.ci.ini <<EOF
-[tinypilot_bastion]
-bastion ansible_host=$BASTION_HOST ansible_user=$BASTION_USER
-EOF
+                                    ansible-playbook --version
 
-                            ANSIBLE_PRIVATE_KEY_FILE="$BASTION_SSH_KEY" \
-                            ANSIBLE_HOST_KEY_CHECKING=False \
-                            ansible-playbook \
-                                -i ansible/inventory.ci.ini \
-                                ansible/deploy.yml
+                                    printf "[tinypilot_bastion]\\nbastion ansible_host=%s ansible_user=%s\\n" "$BASTION_HOST" "$BASTION_USER" > ansible/inventory.ci.ini
+
+                                    ansible-playbook \
+                                        -i ansible/inventory.ci.ini \
+                                        ansible/deploy.yml
+                                '
                         '''
                     }
                 }

@@ -29,7 +29,7 @@ GitHub repository
   -> checkout scm
   -> docker build
   -> docker push to Harbor
-  -> ansible-playbook deploy.yml
+  -> dockerized ansible-playbook deploy.yml
   -> bastion Docker Compose deployment
 ```
 
@@ -66,10 +66,9 @@ docker-build-node
 
 - `git`
 - `docker`
-- `ansible-playbook`
-- `ssh`
 
 Docker daemon 접근 권한도 필요하다.
+Ansible과 SSH client는 `tools/ansible-runner/Dockerfile`에서 만든 컨테이너 안에서 실행한다.
 
 ## 확인해야 할 Jenkins 주소
 
