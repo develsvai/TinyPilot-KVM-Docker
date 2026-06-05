@@ -13,6 +13,8 @@
     tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') | default('', true) }}"
     tailscale_hostname: "{{ lookup('env', 'TS_HOSTNAME') | default('Tinypilot', true) }}"
     tailscale_serve_port: "{{ lookup('env', 'TS_SERVE_PORT') | default('80', true) }}"
+    harbor_cert_dir: "/etc/docker/certs.d/{{ harbor_registry }}"
+    harbor_registry_endpoint: "{{ harbor_registry }}:443"
     project_root: "{{ playbook_dir }}/.."
 
   tasks:
@@ -62,6 +64,39 @@
         dest: "{{ deploy_dir }}/.env"
         mode: "0600"
       no_log: true
+
+    - name: Create Harbor Docker certificate directory
+      ansible.builtin.file:
+        path: "{{ harbor_cert_dir }}"
+        state: directory
+        mode: "0755"
+      become: true
+
+    - name: Read Harbor certificate chain
+      ansible.builtin.shell: |
+        set -eu
+        openssl s_client -showcerts \
+          -servername {{ harbor_registry | quote }} \
+          -connect {{ harbor_registry_endpoint | quote }} </dev/null 2>/dev/null |
+          sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p'
+      args:
+        executable: /bin/bash
+      register: harbor_certificate
+      changed_when: false
+
+    - name: Validate Harbor certificate chain
+      ansible.builtin.assert:
+        that:
+          - "'BEGIN CERTIFICATE' in harbor_certificate.stdout"
+          - "'END CERTIFICATE' in harbor_certificate.stdout"
+        fail_msg: "Unable to read the Harbor TLS certificate chain."
+
+    - name: Trust Harbor certificate for Docker
+      ansible.builtin.copy:
+        content: "{{ harbor_certificate.stdout }}\n"
+        dest: "{{ harbor_cert_dir }}/ca.crt"
+        mode: "0644"
+      become: true
 
     - name: Check Docker access as deployment user
       ansible.builtin.command:

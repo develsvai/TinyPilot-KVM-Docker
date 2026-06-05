@@ -9,6 +9,7 @@ Ansible의 역할:
 
 - bastion에 배포 파일 배치
 - `.env` 렌더링
+- Harbor TLS certificate를 Docker trust store에 설치
 - Harbor registry login
 - HID Gadget 준비 스크립트 실행
 - `docker compose pull`
