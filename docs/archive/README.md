@@ -21,6 +21,9 @@
 ## 주의
 
 archive 문서에는 당시 상태의 수치와 판단이 섞여 있다.
+일부 문서에는 `images/tinypilot/Dockerfile`, `images/ustreamer/Dockerfile` 같은
+과거 원본 Dockerfile 경로와 비교 빌드 명령이 남아 있지만, 현재 운영 빌드에는
+`Dockerfile.optimized`만 남겨둔다.
 현재 배포/운영 판단은 다음 문서를 우선한다.
 
 - [../project-state.md](../project-state.md)

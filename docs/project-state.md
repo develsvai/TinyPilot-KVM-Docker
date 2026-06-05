@@ -35,13 +35,14 @@ TinyPilot의 마우스 코드는 7바이트를 쓴다.
 
 ### 이미지 경량화
 
-최적화 Dockerfile은 별도 파일로 존재한다.
+현재 운영 빌드에서 사용하는 Dockerfile은 최적화 버전만 남긴다.
 
 - [images/tinypilot/Dockerfile.optimized](../images/tinypilot/Dockerfile.optimized)
 - [images/ustreamer/Dockerfile.optimized](../images/ustreamer/Dockerfile.optimized)
 
 기존 Jenkinsfile은 기본 Dockerfile만 빌드해서 최적화 파일이 실제 배포 경로에
-연결되지 않았었다. 새 Jenkins 설계는 `.optimized` 파일을 명시적으로 빌드한다.
+연결되지 않았었다. 새 Jenkins 설계는 `.optimized` 파일을 명시적으로 빌드하며,
+이제 단일 스테이지 원본 Dockerfile은 제거했다.
 
 ### Harbor 이미지
 
