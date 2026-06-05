@@ -49,6 +49,8 @@ pipeline {
                             --username "$HARBOR_USER" \
                             --password-stdin
 
+                        docker run --privileged --rm tonistiigi/binfmt --install arm64
+
                         docker build \
                             --platform "$APP_TARGET_PLATFORM" \
                             -f images/tinypilot/Dockerfile.optimized \

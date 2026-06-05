@@ -72,6 +72,7 @@ Ansible과 SSH client는 `tools/ansible-runner/Dockerfile`에서 만든 컨테�
 
 현재 bastion은 `arm64/aarch64` 호스트라 TinyPilot, uStreamer, Tailscale image build는
 `APP_TARGET_PLATFORM=linux/arm64`로 고정한다.
+Jenkins build node가 amd64일 수 있으므로 build 전에 `tonistiigi/binfmt`로 arm64 emulation을 등록한다.
 `ansible-runner` 이미지는 Jenkins agent에서 실행되므로 agent native architecture로 빌드한다.
 
 ## 확인해야 할 Jenkins 주소
