@@ -19,16 +19,23 @@ sleep 3
 
 echo "Running tailscale up..."
 if [ -n "${TS_AUTHKEY:-}" ]; then
+  AUTHKEY_FILE="$(mktemp)"
+  trap 'rm -f "${AUTHKEY_FILE}"' EXIT
+  chmod 0600 "${AUTHKEY_FILE}"
+  printf '%s' "${TS_AUTHKEY}" > "${AUTHKEY_FILE}"
+
   tailscale up \
-      --authkey="${TS_AUTHKEY}" \
+      --auth-key="file:${AUTHKEY_FILE}" \
       --hostname="${TS_HOSTNAME}" \
       --exit-node= \
-      --accept-dns=false
+      --accept-dns=false \
+      --timeout=45s
 else
   tailscale up \
       --hostname="${TS_HOSTNAME}" \
       --exit-node= \
-      --accept-dns=false
+      --accept-dns=false \
+      --timeout=45s
 fi
 
 # 3. Nginx를 백그라운드에서 실행

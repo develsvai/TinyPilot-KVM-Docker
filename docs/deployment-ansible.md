@@ -53,6 +53,9 @@ Jenkins 환경 변수나 로컬 shell 환경 변수로 전달한다.
 | `TS_HOSTNAME` | Tailscale hostname | `Tinypilot` |
 | `TS_SERVE_PORT` | Tailscale serve TCP port | `80` |
 
+`TAILSCALE_KEY`는 Jenkins credential `tailscale-auth-key`에서 온다.
+키가 만료되거나 Tailscale에서 삭제되면 컨테이너는 `invalid key: API key does not exist`로 로그인하지 못한다.
+
 ## 수동 실행 예시
 
 ```bash
