@@ -27,7 +27,7 @@ Jenkins item은 Git repository에서 Jenkinsfile을 가져오는 Pipeline item�
 GitHub repository
   -> Jenkins Pipeline item
   -> checkout scm
-  -> docker build
+  -> docker build --platform linux/arm64
   -> docker push to Harbor
   -> dockerized ansible-playbook deploy.yml
   -> bastion Docker Compose deployment
@@ -69,6 +69,10 @@ docker-build-node
 
 Docker daemon 접근 권한도 필요하다.
 Ansible과 SSH client는 `tools/ansible-runner/Dockerfile`에서 만든 컨테이너 안에서 실행한다.
+
+현재 bastion은 `arm64/aarch64` 호스트라 TinyPilot, uStreamer, Tailscale image build는
+`APP_TARGET_PLATFORM=linux/arm64`로 고정한다.
+`ansible-runner` 이미지는 Jenkins agent에서 실행되므로 agent native architecture로 빌드한다.
 
 ## 확인해야 할 Jenkins 주소
 
