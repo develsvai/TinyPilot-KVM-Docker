@@ -34,7 +34,8 @@
       loop:
         - "{{ deploy_dir }}"
         - "{{ deploy_dir }}/config"
-        - "{{ deploy_dir }}/deploy"
+        - "{{ deploy_dir }}/ansible"
+        - "{{ deploy_dir }}/ansible/script"
 
     - name: Copy compose file
       ansible.builtin.copy:
@@ -44,8 +45,13 @@
 
     - name: Remove legacy run script
       ansible.builtin.file:
-        path: "{{ deploy_dir }}/run.sh"
+        path: "{{ deploy_dir }}/{{ item }}"
         state: absent
+      loop:
+        - run.sh
+        - setup_hid_gadget.sh
+        - deploy/bastion-deploy.sh
+        - deploy
 
     - name: Copy runtime scripts
       ansible.builtin.copy:
@@ -53,8 +59,8 @@
         dest: "{{ deploy_dir }}/{{ item }}"
         mode: "0755"
       loop:
-        - setup_hid_gadget.sh
-        - deploy/bastion-deploy.sh
+        - ansible/script/setup_hid_gadget.sh
+        - ansible/script/bastion-deploy.sh
 
     - name: Copy TinyPilot config
       ansible.builtin.copy:
@@ -139,7 +145,7 @@
 
     - name: Deploy compose stack
       ansible.builtin.command:
-        cmd: ./deploy/bastion-deploy.sh
+        cmd: ./ansible/script/bastion-deploy.sh
         chdir: "{{ deploy_dir }}"
       register: deploy_result
       changed_when: "'Applying compose deployment' in deploy_result.stdout"

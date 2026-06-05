@@ -13,11 +13,9 @@
 .gitignore
 .env.example
 ansible/
-deploy/
 docs/
 jenkins/
 docker-compose.yml
-setup_hid_gadget.sh
 images/tailscale/
 images/tinypilot/Dockerfile.optimized
 images/tinypilot/app/main.py
@@ -30,7 +28,8 @@ images/ustreamer/Dockerfile.optimized
 ## 로컬 검증
 
 ```bash
-bash -n deploy/bastion-deploy.sh
+bash -n ansible/script/bastion-deploy.sh
+sh -n ansible/script/setup_hid_gadget.sh
 sh -n images/tailscale/start.sh
 
 env \
@@ -70,7 +69,7 @@ ls -l /dev/net/tun
 HID Gadget:
 
 ```bash
-sudo sh ./setup_hid_gadget.sh
+sudo sh ./ansible/script/setup_hid_gadget.sh
 ls -l /dev/hidg0 /dev/hidg1
 ```
 

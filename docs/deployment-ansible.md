@@ -22,11 +22,11 @@ ansible/
   ansible.cfg
   inventory.example.ini
   deploy.yml
+  script/
+    bastion-deploy.sh
+    setup_hid_gadget.sh
   templates/
     env.j2
-
-deploy/
-  bastion-deploy.sh
 
 tools/
   ansible-runner/
@@ -77,7 +77,7 @@ ansible-playbook -i ansible/inventory.example.ini ansible/deploy.yml
 - Docker 설치
 - `docker compose` 또는 `docker-compose` 사용 가능
 - 배포 사용자가 Docker 실행 가능
-- `sudo sh setup_hid_gadget.sh` 실행 가능
+- `sudo sh ansible/script/setup_hid_gadget.sh` 실행 가능
 - `/dev/video0` 존재
 - `/dev/net/tun` 존재
 - Raspberry Pi USB Gadget 사용 가능

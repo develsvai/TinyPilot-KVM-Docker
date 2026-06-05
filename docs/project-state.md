@@ -16,7 +16,7 @@ TinyPilot을 Raspberry Pi 기반 KVM-over-IP 장비로 사용하기 위해 Docke
 
 ### HID Gadget
 
-[setup_hid_gadget.sh](../setup_hid_gadget.sh)가 호스트에서 USB Gadget 장치를 생성한다.
+[ansible/script/setup_hid_gadget.sh](../ansible/script/setup_hid_gadget.sh)가 호스트에서 USB Gadget 장치를 생성한다.
 
 - `/dev/hidg0`: 키보드, 8바이트 리포트
 - `/dev/hidg1`: 마우스, 7바이트 리포트
@@ -59,6 +59,6 @@ Compose는 Harbor 이미지를 pull해서 실행한다.
 
 - 루트 문서는 `README.md`만 유지한다.
 - 과거 포트폴리오/분석 문서는 `docs/archive/`에 보관한다.
-- `jenkins/`, `ansible/`, `deploy/`, `.env.example`, 최적화 Dockerfile은 새 배포 구조의 일부다.
+- `jenkins/`, `ansible/`, `.env.example`, 최적화 Dockerfile은 새 배포 구조의 일부다.
 - `.DS_Store`, `.env`, Jenkins/Ansible 임시 파일은 `.gitignore`로 제외한다.
 - 이전 로컬 시도에서 `.git` 쓰기 권한이 막혀 브랜치 생성/커밋은 권한 승인이 필요했다.
