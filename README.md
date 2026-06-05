@@ -41,6 +41,7 @@ ansible-playbook -i ansible/inventory.example.ini ansible/deploy.yml
 - [docs/deployment-ansible.md](docs/deployment-ansible.md): Ansible 기반 bastion 배포 설계
 - [docs/jenkins-migration.md](docs/jenkins-migration.md): Jenkins item 전환 계획
 - [docs/routing-and-serving.md](docs/routing-and-serving.md): TinyPilot/uStreamer/Tailscale 라우팅 정리
+- [docs/image-optimization-portfolio.md](docs/image-optimization-portfolio.md): 이미지 경량화 실측과 포트폴리오용 정리
 - [docs/operational-checklist.md](docs/operational-checklist.md): 작업 전후 체크리스트
 - [docs/archive/](docs/archive/): 이전 분석/포트폴리오 문서 보관
 

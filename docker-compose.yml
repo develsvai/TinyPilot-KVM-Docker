@@ -1,9 +1,6 @@
-version: '3.6'
 services:
   ustreamer:
-    #build:
-      #context: ./images/ustreamer/
-    image: ${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/ustreamer:${IMAGE_TAG:-latest}
+    image: "${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/ustreamer:${IMAGE_TAG:?IMAGE_TAG must be the 12-character commit tag}"
     container_name: ustreamer
     restart: always
     ports:
@@ -13,9 +10,7 @@ services:
     command: ["ustreamer", "--host=0.0.0.0", "--resolution=1920x1080","--encoder=hw", "--format=mjpeg", "--port=8001", "/dev/video0"] #1280x720
 
   tinypilot:
-   # build:
-   #   context: ./images/tinypilot/
-    image: ${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/tinypilot:${IMAGE_TAG:-latest}
+    image: "${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/tinypilot:${IMAGE_TAG:?IMAGE_TAG must be the 12-character commit tag}"
     container_name: tinypilot
     restart: always
     ports:
@@ -29,11 +24,8 @@ services:
 
     command: ["python3", "/opt/tinypilot/app/main.py"]
 
-  # --- 추가된 Tailscale 서비스 ---
   tailscale:
-   # build:
-   #   context: ./images/tailscale  # Dockerfile이 있는 위치를 지정
-    image: ${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/tailscale:${IMAGE_TAG:-latest}
+    image: "${HARBOR_REGISTRY:-harbor.192.168.0.110.nip.io}/${HARBOR_PROJECT:-tinypilot}/tailscale:${IMAGE_TAG:?IMAGE_TAG must be the 12-character commit tag}"
     container_name: tailscale
     restart: always
     hostname: ${TS_HOSTNAME}         # 컨테이너의 호스트 이름을 설정 (start.sh와 일치)

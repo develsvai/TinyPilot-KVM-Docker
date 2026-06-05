@@ -44,6 +44,15 @@ TinyPilot의 마우스 코드는 7바이트를 쓴다.
 연결되지 않았었다. 새 Jenkins 설계는 `.optimized` 파일을 명시적으로 빌드하며,
 이제 단일 스테이지 원본 Dockerfile은 제거했다.
 
+2026-06-05 bastion 라이브 이미지 기준:
+
+- TinyPilot: 182MB
+- uStreamer: 75.5MB
+- Tailscale: 114MB
+
+포트폴리오용 이전/현재 비교는
+[image-optimization-portfolio.md](image-optimization-portfolio.md)에 둔다.
+
 ### Harbor 이미지
 
 Compose는 Harbor 이미지를 pull해서 실행한다.
@@ -52,9 +61,9 @@ Compose는 Harbor 이미지를 pull해서 실행한다.
 
 - registry: `harbor.192.168.0.110.nip.io`
 - project: `tinypilot`
-- tag: `latest`
+- tag: Jenkins가 생성한 12자리 Git commit SHA
 
-현재 Compose는 `.env`로 registry/project/tag를 주입할 수 있게 바꾸는 방향이다.
+현재 Compose는 `IMAGE_TAG`가 없으면 실패하며, Ansible도 12자리 commit tag만 허용한다.
 
 ## 현재 주의할 점
 

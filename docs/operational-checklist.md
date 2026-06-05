@@ -38,7 +38,7 @@ env \
   TS_SERVE_PORT=443 \
   HARBOR_REGISTRY=harbor.192.168.0.110.nip.io \
   HARBOR_PROJECT=tinypilot \
-  IMAGE_TAG=test \
+  IMAGE_TAG=000000000000 \
   docker compose config
 ```
 

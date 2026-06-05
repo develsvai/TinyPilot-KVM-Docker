@@ -1,6 +1,7 @@
 # ============================================
 # Multi-stage Build: TinyPilot 경량화 버전
-# Before: ~1.2GB → After: ~180MB (85% 감소)
+# Live ARM64 image: 182MB on bastion (2026-06-05, tag f2dde7cac617)
+# Previous single-stage baseline: ~1.2GB in repo notes
 # ============================================
 
 # ==========================================

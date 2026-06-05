@@ -9,7 +9,7 @@
     harbor_project: "{{ lookup('env', 'HARBOR_PROJECT') | default('tinypilot', true) }}"
     harbor_username: "{{ lookup('env', 'HARBOR_USER') | default('', true) }}"
     harbor_password: "{{ lookup('env', 'HARBOR_PASSWORD') | default('', true) }}"
-    image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('latest', true) }}"
+    image_tag: "{{ lookup('env', 'IMAGE_TAG') }}"
     tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') | default('', true) }}"
     tailscale_hostname: "{{ lookup('env', 'TS_HOSTNAME') | default('Tinypilot', true) }}"
     tailscale_serve_port: "{{ lookup('env', 'TS_SERVE_PORT') | default('443', true) }}"
@@ -22,9 +22,10 @@
       ansible.builtin.assert:
         that:
           - image_tag | length > 0
+          - image_tag is match('^[0-9a-f]{12}$')
           - harbor_registry | length > 0
           - harbor_project | length > 0
-        fail_msg: "Missing one of IMAGE_TAG, HARBOR_REGISTRY, or HARBOR_PROJECT."
+        fail_msg: "IMAGE_TAG must be the 12-character Git commit tag, and HARBOR_REGISTRY/HARBOR_PROJECT must be set."
 
     - name: Create deployment directories
       ansible.builtin.file:

@@ -10,6 +10,7 @@
 - [deployment-ansible.md](deployment-ansible.md): Ansible 기반 bastion 배포 설계
 - [jenkins-migration.md](jenkins-migration.md): Jenkins item 전환 계획
 - [routing-and-serving.md](routing-and-serving.md): TinyPilot/uStreamer/Tailscale 라우팅 정리
+- [image-optimization-portfolio.md](image-optimization-portfolio.md): 라이브 이미지 크기와 포트폴리오용 개선 기록
 - [operational-checklist.md](operational-checklist.md): 작업 전후 체크리스트
 - [archive/](archive/): 이전 분석/포트폴리오 문서 보관
 

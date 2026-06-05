@@ -1,6 +1,7 @@
 # ============================================
 # Multi-stage Build: uStreamer 경량화 버전
-# Before: ~800MB → After: ~95MB (88% 감소)
+# Live ARM64 image: 75.5MB on bastion (2026-06-05, tag f2dde7cac617)
+# Previous single-stage baseline: ~800MB in repo notes
 # ============================================
 
 # ==========================================

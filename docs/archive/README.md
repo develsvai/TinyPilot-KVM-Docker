@@ -30,4 +30,5 @@ archive 문서에는 당시 상태의 수치와 판단이 섞여 있다.
 - [../deployment-ansible.md](../deployment-ansible.md)
 - [../jenkins-migration.md](../jenkins-migration.md)
 - [../routing-and-serving.md](../routing-and-serving.md)
+- [../image-optimization-portfolio.md](../image-optimization-portfolio.md)
 - [../operational-checklist.md](../operational-checklist.md)

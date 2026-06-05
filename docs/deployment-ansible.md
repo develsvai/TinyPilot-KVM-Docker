@@ -48,7 +48,7 @@ Jenkins 환경 변수나 로컬 shell 환경 변수로 전달한다.
 | `HARBOR_PROJECT` | Harbor project | `tinypilot` |
 | `HARBOR_USER` | Harbor 사용자 | 없음 |
 | `HARBOR_PASSWORD` | Harbor 비밀번호 | 없음 |
-| `IMAGE_TAG` | 배포할 이미지 태그 | `latest` |
+| `IMAGE_TAG` | 배포할 12자리 Git commit SHA 이미지 태그 | 없음, 필수 |
 | `TAILSCALE_KEY` | Tailscale auth key | 없음 |
 | `TS_HOSTNAME` | Tailscale hostname | `Tinypilot` |
 | `TS_SERVE_PORT` | Tailscale serve HTTPS port | `443` |
@@ -63,7 +63,7 @@ cd TinyPilot-KVM-Docker
 
 export HARBOR_REGISTRY=harbor.192.168.0.110.nip.io
 export HARBOR_PROJECT=tinypilot
-export IMAGE_TAG=latest
+export IMAGE_TAG="$(git rev-parse --short=12 HEAD)"
 export HARBOR_USER='...'
 export HARBOR_PASSWORD='...'
 export TAILSCALE_KEY='...'
@@ -71,6 +71,9 @@ export TS_HOSTNAME=Tinypilot
 
 ansible-playbook -i ansible/inventory.example.ini ansible/deploy.yml
 ```
+
+`IMAGE_TAG`는 `latest`를 허용하지 않는다. Jenkins는 checkout된 commit의
+`git rev-parse --short=12 HEAD` 값을 이미지 태그와 배포 태그로 사용한다.
 
 ## bastion 요구사항
 
