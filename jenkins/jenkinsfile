@@ -1,0 +1,148 @@
+pipeline {
+    agent {
+        label 'docker-build-node'
+    }
+
+    options {
+        disableConcurrentBuilds()
+    }
+
+    environment {
+        HARBOR_REGISTRY = "harbor.192.168.0.110.nip.io"
+        HARBOR_PROJECT  = "tinypilot"
+        HARBOR_CRED     = "harbor-credentials"
+        APP_TARGET_PLATFORM = "linux/arm64"
+
+        BASTION_HOST = "192.168.0.3"
+        BASTION_USER = "hongyongjae"
+        SSH_KEY_ID   = "bastion-ssh-key"
+        DEPLOY_DIR   = "/home/hongyongjae/TinyPilot-KVM-Docker"
+
+        TS_HOSTNAME = "Tinypilot"
+        TAILSCALE_KEY = credentials('tailscale-auth-key')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                script {
+                    env.IMAGE_TAG = sh(
+                        script: 'git rev-parse --short=12 HEAD',
+                        returnStdout: true
+                    ).trim()
+                    if (!(env.IMAGE_TAG ==~ /[0-9a-f]{12}/)) {
+                        error "IMAGE_TAG must be a 12-character Git commit tag: ${env.IMAGE_TAG}"
+                    }
+                }
+            }
+        }
+
+        stage('Build & Push Images') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: "${env.HARBOR_CRED}",
+                    usernameVariable: 'HARBOR_USER',
+                    passwordVariable: 'HARBOR_PASSWORD'
+                )]) {
+                    sh '''
+                        set -eu
+
+                        echo "$HARBOR_PASSWORD" | docker login "$HARBOR_REGISTRY" \
+                            --username "$HARBOR_USER" \
+                            --password-stdin
+
+                        docker run --privileged --rm tonistiigi/binfmt --install arm64
+
+                        docker build \
+                            --platform "$APP_TARGET_PLATFORM" \
+                            -f images/tinypilot/Dockerfile.optimized \
+                            -t "$HARBOR_REGISTRY/$HARBOR_PROJECT/tinypilot:$IMAGE_TAG" \
+                            images/tinypilot
+
+                        docker build \
+                            --platform "$APP_TARGET_PLATFORM" \
+                            -f images/ustreamer/Dockerfile.optimized \
+                            -t "$HARBOR_REGISTRY/$HARBOR_PROJECT/ustreamer:$IMAGE_TAG" \
+                            images/ustreamer
+
+                        docker build \
+                            --platform "$APP_TARGET_PLATFORM" \
+                            -t "$HARBOR_REGISTRY/$HARBOR_PROJECT/tailscale:$IMAGE_TAG" \
+                            images/tailscale
+
+                        docker build \
+                            -f tools/ansible-runner/Dockerfile \
+                            -t "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:$IMAGE_TAG" \
+                            tools/ansible-runner
+
+                        for image in tinypilot ustreamer tailscale ansible-runner; do
+                            docker image ls \
+                                "$HARBOR_REGISTRY/$HARBOR_PROJECT/$image:$IMAGE_TAG" \
+                                --format "built image: {{.Repository}}:{{.Tag}} {{.Size}}"
+                        done
+
+                        docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/tinypilot:$IMAGE_TAG"
+                        docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/ustreamer:$IMAGE_TAG"
+                        docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/tailscale:$IMAGE_TAG"
+                        docker push "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:$IMAGE_TAG"
+                    '''
+                }
+            }
+            post {
+                always {
+                    sh 'docker logout "$HARBOR_REGISTRY" || true'
+                }
+            }
+        }
+
+        stage('Deploy with Ansible') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: "${env.HARBOR_CRED}",
+                    usernameVariable: 'HARBOR_USER',
+                    passwordVariable: 'HARBOR_PASSWORD'
+                )]) {
+                    withCredentials([sshUserPrivateKey(
+                        credentialsId: "${env.SSH_KEY_ID}",
+                        keyFileVariable: 'BASTION_SSH_KEY'
+                    )]) {
+                        sh '''
+                            set -eu
+
+                            docker run --rm \
+                                -e ANSIBLE_HOST_KEY_CHECKING=False \
+                                -e ANSIBLE_PRIVATE_KEY_FILE=/tmp/bastion_key \
+                                -e BASTION_HOST \
+                                -e BASTION_USER \
+                                -e DEPLOY_DIR \
+                                -e HARBOR_REGISTRY \
+                                -e HARBOR_PROJECT \
+                                -e HARBOR_USER \
+                                -e HARBOR_PASSWORD \
+                                -e IMAGE_TAG \
+                                -e TAILSCALE_KEY \
+                                -e TS_HOSTNAME \
+                                -e TS_SERVE_PORT \
+                                -v "$PWD:/workspace" \
+                                -v "$BASTION_SSH_KEY:/tmp/bastion_key:ro" \
+                                -w /workspace \
+                                "$HARBOR_REGISTRY/$HARBOR_PROJECT/ansible-runner:$IMAGE_TAG" \
+                                sh -c '
+                                    set -eu
+
+                                    ansible-playbook --version
+
+                                    printf "[tinypilot_bastion]\\nbastion ansible_host=%s ansible_user=%s\\n" "$BASTION_HOST" "$BASTION_USER" > ansible/inventory.ci.ini
+
+                                    ansible-playbook \
+                                        -i ansible/inventory.ci.ini \
+                                        ansible/deploy.yml
+                                '
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}

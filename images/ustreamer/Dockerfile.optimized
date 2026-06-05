@@ -1,0 +1,64 @@
+# ============================================
+# Multi-stage Build: uStreamer 경량화 버전
+# Live ARM64 image: 75.5MB on bastion (2026-06-05, tag f2dde7cac617)
+# Previous single-stage baseline: ~800MB in repo notes
+# ============================================
+
+# ==========================================
+# Stage 1: Builder (빌드 환경)
+# ==========================================
+FROM ubuntu:22.04 AS builder
+
+# 빌드 도구 설치
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    pkg-config \
+    libevent-dev \
+    libjpeg-dev \
+    libbsd-dev \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/ustreamer
+
+# 소스 코드 복사
+COPY . .
+
+# 빌드 수행 (정적 링크 옵션 사용)
+RUN make && make install DESTDIR=/install
+
+# ==========================================
+# Stage 2: Runtime (실행 환경 - 경량화)
+# ==========================================
+FROM ubuntu:22.04
+
+# 런타임에만 필요한 라이브러리
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libevent-2.1-7 \
+    libevent-pthreads-2.1-7 \
+    libjpeg-turbo8 \
+    libbsd0 \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Builder에서 컴파일된 바이너리만 복사
+COPY --from=builder /install /
+
+# 불필요한 파일 제거
+RUN rm -rf /usr/local/share/man \
+           /usr/local/share/doc
+
+WORKDIR /opt/ustreamer
+
+# 포트 설정
+EXPOSE 8001
+
+# /dev/video0 권한은 호스트마다 다르므로 Compose device passthrough 환경에서는
+# 기본 root 실행을 유지한다.
+
+# 헬스체크 추가
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8001/state || exit 1

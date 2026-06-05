@@ -1,0 +1,156 @@
+---
+- name: Deploy TinyPilot KVM Docker stack
+  hosts: tinypilot_bastion
+  gather_facts: false
+
+  vars:
+    deploy_dir: "{{ lookup('env', 'DEPLOY_DIR') | default('/home/hongyongjae/TinyPilot-KVM-Docker', true) }}"
+    harbor_registry: "{{ lookup('env', 'HARBOR_REGISTRY') | default('harbor.192.168.0.110.nip.io', true) }}"
+    harbor_project: "{{ lookup('env', 'HARBOR_PROJECT') | default('tinypilot', true) }}"
+    harbor_username: "{{ lookup('env', 'HARBOR_USER') | default('', true) }}"
+    harbor_password: "{{ lookup('env', 'HARBOR_PASSWORD') | default('', true) }}"
+    image_tag: "{{ lookup('env', 'IMAGE_TAG') }}"
+    tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') | default('', true) }}"
+    tailscale_hostname: "{{ lookup('env', 'TS_HOSTNAME') | default('Tinypilot', true) }}"
+    tailscale_serve_port: "{{ lookup('env', 'TS_SERVE_PORT') | default('443', true) }}"
+    harbor_cert_dir: "/etc/docker/certs.d/{{ harbor_registry }}"
+    harbor_registry_endpoint: "{{ harbor_registry }}:443"
+    project_root: "{{ playbook_dir }}/.."
+
+  tasks:
+    - name: Validate required deployment values
+      ansible.builtin.assert:
+        that:
+          - image_tag | length > 0
+          - image_tag is match('^[0-9a-f]{12}$')
+          - harbor_registry | length > 0
+          - harbor_project | length > 0
+        fail_msg: "IMAGE_TAG must be the 12-character Git commit tag, and HARBOR_REGISTRY/HARBOR_PROJECT must be set."
+
+    - name: Create deployment directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ deploy_dir }}"
+        - "{{ deploy_dir }}/config"
+        - "{{ deploy_dir }}/ansible"
+        - "{{ deploy_dir }}/ansible/script"
+
+    - name: Copy compose file
+      ansible.builtin.copy:
+        src: "{{ project_root }}/docker-compose.yml"
+        dest: "{{ deploy_dir }}/docker-compose.yml"
+        mode: "0644"
+
+    - name: Remove legacy run script
+      ansible.builtin.file:
+        path: "{{ deploy_dir }}/{{ item }}"
+        state: absent
+      loop:
+        - run.sh
+        - setup_hid_gadget.sh
+        - deploy/bastion-deploy.sh
+        - deploy
+
+    - name: Copy runtime scripts
+      ansible.builtin.copy:
+        src: "{{ project_root }}/{{ item }}"
+        dest: "{{ deploy_dir }}/{{ item }}"
+        mode: "0755"
+      loop:
+        - ansible/script/setup_hid_gadget.sh
+        - ansible/script/bastion-deploy.sh
+
+    - name: Copy TinyPilot config
+      ansible.builtin.copy:
+        src: "{{ project_root }}/config/config.py"
+        dest: "{{ deploy_dir }}/config/config.py"
+        mode: "0644"
+
+    - name: Render compose environment
+      ansible.builtin.template:
+        src: env.j2
+        dest: "{{ deploy_dir }}/.env"
+        mode: "0600"
+      no_log: true
+
+    - name: Create Harbor Docker certificate directory
+      ansible.builtin.file:
+        path: "{{ harbor_cert_dir }}"
+        state: directory
+        mode: "0755"
+      become: true
+
+    - name: Read Harbor certificate chain
+      ansible.builtin.shell: |
+        set -eu
+        openssl s_client -showcerts \
+          -servername {{ harbor_registry | quote }} \
+          -connect {{ harbor_registry_endpoint | quote }} </dev/null 2>/dev/null |
+          sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p'
+      args:
+        executable: /bin/bash
+      register: harbor_certificate
+      changed_when: false
+
+    - name: Validate Harbor certificate chain
+      ansible.builtin.assert:
+        that:
+          - "'BEGIN CERTIFICATE' in harbor_certificate.stdout"
+          - "'END CERTIFICATE' in harbor_certificate.stdout"
+        fail_msg: "Unable to read the Harbor TLS certificate chain."
+
+    - name: Trust Harbor certificate for Docker
+      ansible.builtin.copy:
+        content: "{{ harbor_certificate.stdout }}\n"
+        dest: "{{ harbor_cert_dir }}/ca.crt"
+        mode: "0644"
+      become: true
+
+    - name: Check Docker access as deployment user
+      ansible.builtin.command:
+        cmd: docker info
+      register: docker_access
+      changed_when: false
+      failed_when: false
+
+    - name: Check Docker access through passwordless sudo
+      ansible.builtin.command:
+        cmd: sudo -n docker info
+      register: sudo_docker_access
+      changed_when: false
+      failed_when: false
+      when: docker_access.rc != 0
+
+    - name: Select Docker CLI for registry login
+      ansible.builtin.set_fact:
+        docker_cli: "{{ 'docker' if docker_access.rc == 0 else 'sudo -n docker' }}"
+
+    - name: Validate Docker access
+      ansible.builtin.assert:
+        that:
+          - docker_access.rc == 0 or sudo_docker_access.rc == 0
+        fail_msg: "Docker is not accessible as the deployment user or through passwordless sudo."
+
+    - name: Login to Harbor on bastion
+      ansible.builtin.command:
+        cmd: "{{ docker_cli }} login {{ harbor_registry }} --username {{ harbor_username }} --password-stdin"
+        stdin: "{{ harbor_password }}"
+      when:
+        - harbor_username | length > 0
+        - harbor_password | length > 0
+      changed_when: false
+      no_log: true
+
+    - name: Deploy compose stack
+      ansible.builtin.command:
+        cmd: ./ansible/script/bastion-deploy.sh
+        chdir: "{{ deploy_dir }}"
+      register: deploy_result
+      changed_when: "'Applying compose deployment' in deploy_result.stdout"
+
+    - name: Show deployment output
+      ansible.builtin.debug:
+        var: deploy_result.stdout_lines
