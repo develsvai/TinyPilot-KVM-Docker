@@ -88,7 +88,10 @@ pipeline {
                     usernameVariable: 'HARBOR_USER',
                     passwordVariable: 'HARBOR_PASSWORD'
                 )]) {
-                    sshagent([env.SSH_KEY_ID]) {
+                    withCredentials([sshUserPrivateKey(
+                        credentialsId: "${env.SSH_KEY_ID}",
+                        keyFileVariable: 'BASTION_SSH_KEY'
+                    )]) {
                         sh '''
                             set -eu
 
@@ -99,6 +102,7 @@ pipeline {
 bastion ansible_host=$BASTION_HOST ansible_user=$BASTION_USER
 EOF
 
+                            ANSIBLE_PRIVATE_KEY_FILE="$BASTION_SSH_KEY" \
                             ANSIBLE_HOST_KEY_CHECKING=False \
                             ansible-playbook \
                                 -i ansible/inventory.ci.ini \
