@@ -18,7 +18,7 @@ TinyPilot을 Raspberry Pi 기반 KVM-over-IP 장비로 사용하기 위해 Docke
 
 - Jenkins는 Git repository에서 Jenkinsfile을 가져와 build/push/deploy를 수행합니다.
 - 이미지는 Harbor에 push합니다.
-- bastion은 Ansible이 `.env`, Compose 파일, 실행 스크립트를 배치한 뒤 배포합니다.
+- bastion은 Ansible이 `.env`, Compose 파일, 배포 스크립트를 배치한 뒤 배포합니다.
 - 하드웨어 장치 초기화는 bastion에서 `setup_hid_gadget.sh`가 담당합니다.
 
 ## 빠른 실행
@@ -26,8 +26,7 @@ TinyPilot을 Raspberry Pi 기반 KVM-over-IP 장비로 사용하기 위해 Docke
 수동 배포 시:
 
 ```bash
-sudo sh ./setup_hid_gadget.sh
-./run.sh
+./deploy/bastion-deploy.sh
 ```
 
 Ansible 배포 시:

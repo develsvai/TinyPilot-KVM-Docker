@@ -17,7 +17,6 @@ deploy/
 docs/
 jenkins/
 docker-compose.yml
-run.sh
 setup_hid_gadget.sh
 images/tailscale/
 images/tinypilot/Dockerfile.optimized
@@ -31,7 +30,6 @@ images/ustreamer/Dockerfile.optimized
 ## 로컬 검증
 
 ```bash
-bash -n run.sh
 bash -n deploy/bastion-deploy.sh
 sh -n images/tailscale/start.sh
 
@@ -55,7 +53,7 @@ ansible-playbook --syntax-check -i ansible/inventory.example.ini ansible/deploy.
 
 - Jenkins agent `docker-build-node`가 online인지 확인
 - agent에서 `docker ps` 가능 여부 확인
-- agent에서 `ansible-playbook --version` 확인
+- agent에서 `docker ps`와 `docker run` 가능 여부 확인
 - Harbor credential ID 확인: `harbor-credentials`
 - SSH credential ID 확인: `bastion-ssh-key`
 - Tailscale credential ID 확인: `tailscale-auth-key`

@@ -42,13 +42,17 @@
         dest: "{{ deploy_dir }}/docker-compose.yml"
         mode: "0644"
 
+    - name: Remove legacy run script
+      ansible.builtin.file:
+        path: "{{ deploy_dir }}/run.sh"
+        state: absent
+
     - name: Copy runtime scripts
       ansible.builtin.copy:
         src: "{{ project_root }}/{{ item }}"
         dest: "{{ deploy_dir }}/{{ item }}"
         mode: "0755"
       loop:
-        - run.sh
         - setup_hid_gadget.sh
         - deploy/bastion-deploy.sh
 
