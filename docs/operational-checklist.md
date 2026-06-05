@@ -38,7 +38,7 @@ sh -n images/tailscale/start.sh
 env \
   TS_HOSTNAME=Tinypilot \
   TS_AUTHKEY=dummy \
-  TS_SERVE_PORT=80 \
+  TS_SERVE_PORT=443 \
   HARBOR_REGISTRY=harbor.192.168.0.110.nip.io \
   HARBOR_PROJECT=tinypilot \
   IMAGE_TAG=test \

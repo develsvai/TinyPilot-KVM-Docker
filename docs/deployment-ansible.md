@@ -51,7 +51,7 @@ Jenkins 환경 변수나 로컬 shell 환경 변수로 전달한다.
 | `IMAGE_TAG` | 배포할 이미지 태그 | `latest` |
 | `TAILSCALE_KEY` | Tailscale auth key | 없음 |
 | `TS_HOSTNAME` | Tailscale hostname | `Tinypilot` |
-| `TS_SERVE_PORT` | Tailscale serve TCP port | `80` |
+| `TS_SERVE_PORT` | Tailscale serve HTTPS port | `443` |
 
 `TAILSCALE_KEY`는 Jenkins credential `tailscale-auth-key`에서 온다.
 키가 만료되거나 Tailscale에서 삭제되면 컨테이너는 `invalid key: API key does not exist`로 로그인하지 못한다.

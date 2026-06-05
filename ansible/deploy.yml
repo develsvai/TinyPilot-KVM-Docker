@@ -12,7 +12,7 @@
     image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('latest', true) }}"
     tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') | default('', true) }}"
     tailscale_hostname: "{{ lookup('env', 'TS_HOSTNAME') | default('Tinypilot', true) }}"
-    tailscale_serve_port: "{{ lookup('env', 'TS_SERVE_PORT') | default('80', true) }}"
+    tailscale_serve_port: "{{ lookup('env', 'TS_SERVE_PORT') | default('443', true) }}"
     harbor_cert_dir: "/etc/docker/certs.d/{{ harbor_registry }}"
     harbor_registry_endpoint: "{{ harbor_registry }}:443"
     project_root: "{{ playbook_dir }}/.."

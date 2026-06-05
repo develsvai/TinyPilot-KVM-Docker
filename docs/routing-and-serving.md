@@ -6,7 +6,7 @@
 
 ```text
 Browser
-  -> Tailscale serve TCP port
+  -> Tailscale serve HTTPS port
   -> tailscale container nginx :9090
   -> tinypilot:8000 or ustreamer:8001
 ```
