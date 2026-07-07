@@ -1,0 +1,39 @@
+{
+  "id": "task-20250825-031132-udc-hid-readme-485bc9a3",
+  "job_id": "job-20250825-030738-hid-8bdb752a",
+  "title": "UDC/HID 설정 검증과 README 보강",
+  "description": "UDC setup과 hidg 설정 검증을 추가하고 README를 수정합니다.",
+  "status": "DONE",
+  "created_at": "2025-08-25T03:11:32+09:00",
+  "updated_at": "2025-08-25T03:11:32+09:00",
+  "order_index": 2,
+  "assigned_agent": "",
+  "depends_on": [
+    "task-20250825-030738-run-script-68599c5d"
+  ],
+  "expected_output": "HID Gadget 설정 검증 절차와 사용자 문서가 보강됩니다.",
+  "done_condition": "장비 초기화 실패를 더 빨리 확인할 수 있는 검증 흐름이 생깁니다.",
+  "in_scope": "UDC/HID 검증, README 수정.",
+  "out_of_scope": "Ansible `setup_hid_gadget.sh` 통합은 후속 Job에서 다룹니다.",
+  "validation_hint": "`git show 62fba76 15f1b47`과 `docs/project-state.md`를 대조합니다.",
+  "required_docs": [
+    "README.md",
+    "docs/project-state.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "62fba76",
+    "15f1b47"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20250825-031132-udc-hid-readme-485bc9a3/result.md",
+    ".loom/tasks/task-20250825-031132-udc-hid-readme-485bc9a3/decision.md",
+    ".loom/tasks/task-20250825-031132-udc-hid-readme-485bc9a3/troubleshooting.md",
+    ".loom/tasks/task-20250825-031132-udc-hid-readme-485bc9a3/artifacts.json"
+  ]
+}

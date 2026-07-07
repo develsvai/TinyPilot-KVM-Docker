@@ -1,0 +1,19 @@
+{
+  "id": "checkpoint-20260701-091249-task-completed-job-4c3d33d8",
+  "created_at": "2026-07-01T09:12:49+00:00",
+  "reason": "Task completed: 과거 Job 경계 초안 작성",
+  "summary": "과거 Job 경계 초안 작성 -> DONE @ develop/f3e43c5f5196",
+  "job_id": "job-20260701-090917-job-318bb3e3",
+  "task_id": "task-20260701-090918-job-1d75895a",
+  "commit_sha": "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f",
+  "branch_name": "develop",
+  "dirty": true,
+  "staged_files": [],
+  "modified_files": [],
+  "untracked_files": [
+    ".loom/",
+    "AGENTS.md"
+  ],
+  "snapshot_captured_at": "2026-07-01T09:12:49+00:00",
+  "rollback_strategy": "revert-or-branch"
+}

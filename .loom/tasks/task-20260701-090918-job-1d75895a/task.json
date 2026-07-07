@@ -1,0 +1,41 @@
+{
+  "id": "task-20260701-090918-job-1d75895a",
+  "job_id": "job-20260701-090917-job-318bb3e3",
+  "title": "과거 Job 경계 초안 작성",
+  "description": "커밋/문서 신호를 사람 기준의 과거 Job 후보로 묶습니다. Job은 단일 커밋이 아니라 작업 흐름입니다. 사용자에게 보이는 구조화 필드는 한국어로 작성합니다.",
+  "status": "DONE",
+  "created_at": "2026-07-01T09:09:18+00:00",
+  "updated_at": "2026-07-01T09:12:49+00:00",
+  "order_index": 2,
+  "assigned_agent": "foreground",
+  "depends_on": [
+    "task-20260701-090918-task-f0db697f"
+  ],
+  "expected_output": "`.loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/job-drafts.json`에 증거 ref와 confidence가 포함된 Job 후보가 기록됩니다. `title`, `goal`, `confidence_reason`, `open_questions` 같은 사용자 표시 필드는 한국어여야 합니다.",
+  "done_condition": "각 draft Job에 한국어 제목, 목표, 대략적 기간, evidence refs, confidence, open questions가 있습니다.",
+  "in_scope": "커밋, 변경 경로, status/task 문서, README/runbook 기반의 boundary 추론.",
+  "out_of_scope": "아직 최종 Loom 과거 Job을 생성하지 않습니다.",
+  "validation_hint": "서로 다른 관심사가 섞였는지 확인하고 confidence가 낮으면 deploy/runtime/docs/security 흐름을 분리합니다.",
+  "required_docs": [],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f"
+  ],
+  "branch_name": "develop",
+  "git_dirty": true,
+  "git_snapshot_captured_at": "2026-07-01T09:12:49+00:00",
+  "artifacts": [
+    ".loom/tasks/task-20260701-090918-job-1d75895a/agent-events.jsonl",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/artifacts.json",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/context.md",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/decision.md",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/git-snapshot.json",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/logs.txt",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/previous-results.md",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/prompt.md",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/result.md",
+    ".loom/tasks/task-20260701-090918-job-1d75895a/troubleshooting.md"
+  ]
+}

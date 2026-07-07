@@ -1,0 +1,41 @@
+{
+  "id": "task-20260701-090918-task-fb758d55",
+  "job_id": "job-20260701-090917-job-318bb3e3",
+  "title": "복원 신뢰도 검토",
+  "description": "전체 복원 결과의 약한 경계, 누락된 근거, 사용자에게 보여야 할 경고를 검토합니다.",
+  "status": "DONE",
+  "created_at": "2026-07-01T09:09:18+00:00",
+  "updated_at": "2026-07-01T09:17:59+00:00",
+  "order_index": 5,
+  "assigned_agent": "foreground",
+  "depends_on": [
+    "task-20260701-090918-task-02be4231"
+  ],
+  "expected_output": "`.loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/confidence-review.md`에 리스크, low-confidence 항목, 권장 수정이 정리됩니다.",
+  "done_condition": "복원 계획이 apply 가능한지 또는 먼저 고쳐야 할 항목이 무엇인지 명확합니다.",
+  "in_scope": "품질 검토, boundary 검토, confidence scoring, omitted commit policy.",
+  "out_of_scope": "수동 수정이 필요하다고 판단되면 apply하지 않습니다.",
+  "validation_hint": "low-confidence Task가 confident decision으로 바뀌지 않고 계속 보이는지 확인합니다.",
+  "required_docs": [],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f"
+  ],
+  "branch_name": "develop",
+  "git_dirty": true,
+  "git_snapshot_captured_at": "2026-07-01T09:17:59+00:00",
+  "artifacts": [
+    ".loom/tasks/task-20260701-090918-task-fb758d55/agent-events.jsonl",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/artifacts.json",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/context.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/decision.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/git-snapshot.json",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/logs.txt",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/previous-results.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/prompt.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/result.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/troubleshooting.md"
+  ]
+}

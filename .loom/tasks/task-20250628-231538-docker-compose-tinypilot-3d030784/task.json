@@ -1,0 +1,35 @@
+{
+  "id": "task-20250628-231538-docker-compose-tinypilot-3d030784",
+  "job_id": "job-20250628-231538-tinypilot-docker-hid-1571c145",
+  "title": "Docker Compose 기반 TinyPilot 배포 초기화",
+  "description": "TinyPilot과 uStreamer를 Compose로 실행하기 위한 초기 레포 구조와 `docker-compose.yml`을 구성합니다.",
+  "status": "DONE",
+  "created_at": "2025-06-28T23:15:38+09:00",
+  "updated_at": "2025-06-28T23:15:38+09:00",
+  "order_index": 1,
+  "assigned_agent": "",
+  "depends_on": [],
+  "expected_output": "`docker-compose.yml`과 TinyPilot/uStreamer 이미지 소스가 레포에 들어오고 기본 컨테이너 실행 경로가 생깁니다.",
+  "done_condition": "초기 Docker 배포 프로젝트 구조가 커밋되어 후속 config/HID 작업의 기준선이 됩니다.",
+  "in_scope": "초기 레포 구조, compose 서비스 정의, TinyPilot/uStreamer 소스 포함.",
+  "out_of_scope": "Tailscale, Jenkins, Ansible 배포 현대화는 후속 Job 범위입니다.",
+  "validation_hint": "`git show --stat c11a70233f98`로 초기 파일 구성을 확인합니다.",
+  "required_docs": [
+    "README.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "c11a70233f98"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20250628-231538-docker-compose-tinypilot-3d030784/result.md",
+    ".loom/tasks/task-20250628-231538-docker-compose-tinypilot-3d030784/decision.md",
+    ".loom/tasks/task-20250628-231538-docker-compose-tinypilot-3d030784/troubleshooting.md",
+    ".loom/tasks/task-20250628-231538-docker-compose-tinypilot-3d030784/artifacts.json"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "task-20250628-233220-usb-gadget-141f5361",
+  "job_id": "job-20250628-231538-tinypilot-docker-hid-1571c145",
+  "title": "설정 파일과 USB Gadget 구성 추가",
+  "description": "`config/config.py`와 gadget 설정 파일을 추가해 컨테이너 실행에 필요한 설정과 HID 장치 기반을 보강합니다.",
+  "status": "DONE",
+  "created_at": "2025-06-28T23:32:20+09:00",
+  "updated_at": "2025-06-28T23:32:20+09:00",
+  "order_index": 2,
+  "assigned_agent": "",
+  "depends_on": [
+    "task-20250628-231538-docker-compose-tinypilot-3d030784"
+  ],
+  "expected_output": "config 파일과 gadget 설정이 레포에 포함됩니다.",
+  "done_condition": "TinyPilot 컨테이너가 프로젝트 설정과 host HID 장치 구성에 맞춰 실행될 준비가 됩니다.",
+  "in_scope": "config 파일, gadget 설정 파일, Compose mount 조정.",
+  "out_of_scope": "마우스 디스크립터 버그 수정은 별도 Task로 분리합니다.",
+  "validation_hint": "`git show --stat 8207905 86705c8`로 설정 파일 추가를 확인합니다.",
+  "required_docs": [
+    "docs/project-state.md",
+    "images/tinypilot/docs/usb-gadget-driver.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "8207905",
+    "86705c8"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20250628-233220-usb-gadget-141f5361/result.md",
+    ".loom/tasks/task-20250628-233220-usb-gadget-141f5361/decision.md",
+    ".loom/tasks/task-20250628-233220-usb-gadget-141f5361/troubleshooting.md",
+    ".loom/tasks/task-20250628-233220-usb-gadget-141f5361/artifacts.json"
+  ]
+}

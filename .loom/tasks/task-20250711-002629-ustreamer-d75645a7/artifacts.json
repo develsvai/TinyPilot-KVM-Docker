@@ -1,0 +1,17 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-07-11T00:26:29+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250711-002629-ustreamer-d75645a7/result.md",
+    ".loom/tasks/task-20250711-002629-ustreamer-d75645a7/decision.md",
+    ".loom/tasks/task-20250711-002629-ustreamer-d75645a7/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "752f760"
+  ],
+  "source_docs": [
+    "README.md",
+    "docs/routing-and-serving.md"
+  ],
+  "changed_files": []
+}

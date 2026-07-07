@@ -1,0 +1,17 @@
+{
+  "id": "job-20250628-231538-tinypilot-docker-hid-1571c145",
+  "title": "TinyPilot Docker 기반과 HID 입력 구성 복원",
+  "goal": "TinyPilot과 uStreamer를 Docker Compose 기반으로 실행하고 USB Gadget HID 입력 문제를 해결한 초기 작업 흐름을 복원합니다.",
+  "status": "DONE",
+  "created_at": "2025-06-28T23:15:38+09:00",
+  "updated_at": "2025-07-11T01:54:15+09:00",
+  "context_refs": [],
+  "task_ids": [
+    "task-20250628-231538-docker-compose-tinypilot-3d030784",
+    "task-20250628-233220-usb-gadget-141f5361",
+    "task-20250711-002629-ustreamer-d75645a7",
+    "task-20250711-015415-hid-7-5eb9828f"
+  ],
+  "branch_name": "",
+  "checkpoint_ids": []
+}

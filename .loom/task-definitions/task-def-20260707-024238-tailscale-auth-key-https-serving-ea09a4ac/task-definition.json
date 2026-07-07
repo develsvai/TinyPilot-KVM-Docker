@@ -1,0 +1,28 @@
+{
+  "id": "task-def-20260707-024238-tailscale-auth-key-https-serving-ea09a4ac",
+  "job_definition_id": "job-20260605-171857-jenkins-ansible-harbor-68f2aa09",
+  "title": "Tailscale auth key 보호와 HTTPS serving 수정",
+  "description": "Tailscale auth key가 process args에 노출되지 않도록 하고 TinyPilot을 Tailscale HTTPS 경로로 제공하도록 수정합니다.",
+  "created_at": "2026-07-07T02:42:38+00:00",
+  "updated_at": "2026-07-07T02:42:38+00:00",
+  "order_index": 4,
+  "legacy_task_id": "task-20260605-180846-tailscale-auth-key-https-serving-fb709860",
+  "depends_on": [
+    "task-def-20260707-024238-bastion-harbor-arm64-runtime-56a40b99"
+  ],
+  "expected_output": "auth key 노출 위험이 줄고 Tailscale HTTPS 라우팅이 정상화됩니다.",
+  "done_condition": "TinyPilot 웹 UI와 uStreamer 경로가 Tailscale HTTPS proxy 뒤에서 제공됩니다.",
+  "in_scope": "Tailscale auth key handling, `.env.example`, Compose/Ansible/nginx routing docs.",
+  "out_of_scope": "nginx upstream name 정리는 별도 커밋이지만 같은 serving 안정화 흐름에 포함합니다.",
+  "validation_hint": "`git show 61f01b3 e64526a ca64fad`와 `docs/routing-and-serving.md`를 확인합니다.",
+  "required_docs": [
+    "docs/deployment-ansible.md",
+    "docs/routing-and-serving.md",
+    "docs/operational-checklist.md"
+  ],
+  "memory_refs": [],
+  "default_agent": "",
+  "context_policy_id": "",
+  "executor_policy_id": "",
+  "review_policy": ""
+}

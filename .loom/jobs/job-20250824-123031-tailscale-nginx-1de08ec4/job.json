@@ -1,0 +1,16 @@
+{
+  "id": "job-20250824-123031-tailscale-nginx-1de08ec4",
+  "title": "Tailscale 원격 접속과 nginx 프록시 라우팅 구성",
+  "goal": "Tailscale 컨테이너와 내부 nginx proxy를 Compose 배포에 통합하고 TinyPilot/uStreamer 라우팅 구조를 정리합니다.",
+  "status": "DONE",
+  "created_at": "2025-08-24T12:30:31+09:00",
+  "updated_at": "2025-08-24T20:20:58+09:00",
+  "context_refs": [],
+  "task_ids": [
+    "task-20250824-123031-tailscale-nginx-proxy-bf77db2a",
+    "task-20250824-123431-config-a485622b",
+    "task-20250824-202058-nginx-ingress-tailscale-d7246564"
+  ],
+  "branch_name": "",
+  "checkpoint_ids": []
+}

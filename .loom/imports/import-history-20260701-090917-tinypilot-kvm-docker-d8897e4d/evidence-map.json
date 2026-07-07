@@ -1,0 +1,194 @@
+{
+  "tasks": [
+    {
+      "task_draft_id": "draft-task-001",
+      "job_draft_id": "draft-job-001",
+      "title": "Docker Compose 기반 TinyPilot 배포 초기화",
+      "date_range": "2025-06-28T23:15:38+09:00",
+      "commit_refs": ["c11a70233f98"],
+      "changed_files": ["docker-compose.yml", "images/tinypilot/**", "images/ustreamer/**"],
+      "source_docs": ["README.md"],
+      "evidence_gap": "초기 커밋은 대량 소스 도입이라 세부 의도는 후속 커밋과 현재 문서에서 보강해야 합니다.",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-002",
+      "job_draft_id": "draft-job-001",
+      "title": "설정 파일과 USB Gadget 구성 추가",
+      "date_range": "2025-06-28T23:32:20+09:00 - 2025-07-01T09:45:49+09:00",
+      "commit_refs": ["8207905", "86705c8"],
+      "changed_files": ["config/config.py", "docker-compose.yml", "setup_hid_gadget.sh"],
+      "source_docs": ["docs/project-state.md", "images/tinypilot/docs/usb-gadget-driver.md"],
+      "evidence_gap": "`86705c8`은 `setup_hid_gadget.sh` 생성 근거가 명확하지만 config의 구체 역할은 추가 diff 검토가 필요합니다.",
+      "confidence": "중간"
+    },
+    {
+      "task_draft_id": "draft-task-003",
+      "job_draft_id": "draft-job-001",
+      "title": "uStreamer 해상도 옵션 조정",
+      "date_range": "2025-07-11T00:26:29+09:00",
+      "commit_refs": ["752f760"],
+      "changed_files": ["docker-compose.yml"],
+      "source_docs": ["README.md", "docs/routing-and-serving.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-004",
+      "job_draft_id": "draft-job-001",
+      "title": "마우스 HID 디스크립터 7바이트 처리 수정",
+      "date_range": "2025-07-11T01:54:15+09:00 - 2025-07-11T02:33:36+09:00",
+      "commit_refs": ["ef96125", "6d0b235"],
+      "changed_files": ["setup_hid_gadget.sh", "setup_hid_gadget2.sh", "README.md"],
+      "source_docs": ["docs/project-state.md", "README.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-005",
+      "job_draft_id": "draft-job-002",
+      "title": "Tailscale 컨테이너와 내부 nginx proxy 추가",
+      "date_range": "2025-08-24T12:30:31+09:00",
+      "commit_refs": ["8370b58"],
+      "changed_files": ["docker-compose.yml", "images/tailscale/**"],
+      "source_docs": ["README.md", "docs/routing-and-serving.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-006",
+      "job_draft_id": "draft-job-002",
+      "title": "config 위치와 이미지 경로 정리",
+      "date_range": "2025-08-24T12:34:31+09:00 - 2025-08-24T13:27:05+09:00",
+      "commit_refs": ["baa016a", "e08cb1c", "36e9a02"],
+      "changed_files": ["config/config.py", "docker-compose.yml"],
+      "source_docs": ["docs/project-state.md"],
+      "evidence_gap": "config 제거 후 복구 과정의 실제 실패 로그는 레포에 없습니다.",
+      "confidence": "중간"
+    },
+    {
+      "task_draft_id": "draft-task-007",
+      "job_draft_id": "draft-job-002",
+      "title": "nginx ingress 비활성화와 Tailscale 파일명 정리",
+      "date_range": "2025-08-24T20:20:58+09:00 - 2025-08-24T20:42:45+09:00",
+      "commit_refs": ["572b807", "4c6be29"],
+      "changed_files": ["docker-compose.yml", "images/tailscale/Dockerfile", "images/tailscale/tailscale_tinypilot_nginx_proxy.conf"],
+      "source_docs": ["docs/routing-and-serving.md", "README.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-008",
+      "job_draft_id": "draft-job-003",
+      "title": "수동 실행용 run script 추가",
+      "date_range": "2025-08-25T03:07:38+09:00",
+      "commit_refs": ["336791e"],
+      "changed_files": ["run.sh"],
+      "source_docs": ["README.md"],
+      "evidence_gap": "이후 `7346ff0`에서 legacy run script로 제거되어 최종 운영 경로는 아닙니다.",
+      "confidence": "중간"
+    },
+    {
+      "task_draft_id": "draft-task-009",
+      "job_draft_id": "draft-job-003",
+      "title": "UDC/HID 설정 검증과 README 보강",
+      "date_range": "2025-08-25T03:11:32+09:00 - 2025-09-07T19:28:40+09:00",
+      "commit_refs": ["62fba76", "15f1b47"],
+      "changed_files": ["setup_hid_gadget.sh", "README.md"],
+      "source_docs": ["README.md", "docs/project-state.md"],
+      "evidence_gap": "현재 canonical HID setup은 `ansible/script/setup_hid_gadget.sh`입니다.",
+      "confidence": "중간"
+    },
+    {
+      "task_draft_id": "draft-task-010",
+      "job_draft_id": "draft-job-004",
+      "title": "Ansible/Jenkins 배포 기준선 문서화와 구조 추가",
+      "date_range": "2026-06-05T17:18:57+09:00",
+      "commit_refs": ["de632bb"],
+      "changed_files": [".env.example", "ansible/**", "docker-compose.yml", "docs/**", "images/tinypilot/Dockerfile.optimized", "images/ustreamer/Dockerfile.optimized", "jenkins/**"],
+      "source_docs": ["README.md", "docs/deployment-ansible.md", "docs/jenkins-migration.md", "docs/project-state.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-011",
+      "job_draft_id": "draft-job-004",
+      "title": "Jenkins Pipeline 실행 의존성 수정",
+      "date_range": "2026-06-05T17:28:11+09:00 - 2026-06-05T17:34:15+09:00",
+      "commit_refs": ["8fdd415", "53923d6", "101f1d7"],
+      "changed_files": ["jenkins/jenkinsfile", "tools/ansible-runner/Dockerfile", "docs/deployment-ansible.md", "docs/jenkins-migration.md"],
+      "source_docs": ["docs/jenkins-migration.md", "docs/deployment-ansible.md"],
+      "evidence_gap": "실제 Jenkins 실패 로그는 레포에 없고, 오류 종류는 commit subject와 문서 설명 기반입니다.",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-012",
+      "job_draft_id": "draft-job-004",
+      "title": "bastion 배포와 Harbor/arm64/runtime 문제 해결",
+      "date_range": "2026-06-05T17:37:02+09:00 - 2026-06-05T18:03:16+09:00",
+      "commit_refs": ["707353e", "5f61319", "ca67c26", "53a625c", "17c5aa2"],
+      "changed_files": ["ansible/deploy.yml", "docs/deployment-ansible.md", "docs/jenkins-migration.md", "jenkins/jenkinsfile", "images/ustreamer/Dockerfile.optimized"],
+      "source_docs": ["docs/deployment-ansible.md", "docs/jenkins-migration.md", "docs/project-state.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-013",
+      "job_draft_id": "draft-job-004",
+      "title": "Tailscale auth key 보호와 HTTPS serving 수정",
+      "date_range": "2026-06-05T18:08:46+09:00 - 2026-06-05T18:35:58+09:00",
+      "commit_refs": ["61f01b3", "e64526a", "ca64fad"],
+      "changed_files": [".env.example", "ansible/deploy.yml", "docker-compose.yml", "docs/deployment-ansible.md", "docs/operational-checklist.md", "docs/routing-and-serving.md"],
+      "source_docs": ["docs/deployment-ansible.md", "docs/routing-and-serving.md", "docs/operational-checklist.md"],
+      "evidence_gap": "실제 Tailscale HTTPS 접속 검증 결과는 레포 문서와 commit subject로만 확인됩니다.",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-014",
+      "job_draft_id": "draft-job-005",
+      "title": "legacy run script 제거와 Ansible 배포 스크립트 통합",
+      "date_range": "2026-06-05T19:58:43+09:00 - 2026-06-05T20:16:57+09:00",
+      "commit_refs": ["7346ff0", "f2dde7c"],
+      "changed_files": ["ansible/deploy.yml", "ansible/script/bastion-deploy.sh", "ansible/script/setup_hid_gadget.sh", "docker-compose.yml", "docs/deployment-ansible.md", "docs/operational-checklist.md", "docs/project-state.md"],
+      "source_docs": ["docs/deployment-ansible.md", "docs/operational-checklist.md", "docs/project-state.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-015",
+      "job_draft_id": "draft-job-005",
+      "title": "사용하지 않는 원본 Dockerfile 제거",
+      "date_range": "2026-06-05T20:25:09+09:00",
+      "commit_refs": ["993ac89"],
+      "changed_files": ["docs/archive/README.md", "docs/project-state.md", "images/tinypilot/Dockerfile", "images/ustreamer/Dockerfile"],
+      "source_docs": ["docs/project-state.md", "docs/archive/README.md", "docs/image-optimization-portfolio.md"],
+      "evidence_gap": "삭제 파일 경로는 commit diff 기준으로 재확인이 필요합니다.",
+      "confidence": "높음"
+    },
+    {
+      "task_draft_id": "draft-task-016",
+      "job_draft_id": "draft-job-005",
+      "title": "12자리 Git SHA immutable image tag 강제",
+      "date_range": "2026-06-05T20:52:27+09:00",
+      "commit_refs": ["f3e43c5"],
+      "changed_files": [".env.example", "docker-compose.yml", "ansible/deploy.yml", "jenkins/jenkinsfile", "docs/project-state.md", "docs/deployment-ansible.md", "docs/image-optimization-portfolio.md"],
+      "source_docs": ["README.md", "docs/project-state.md", "docs/deployment-ansible.md", "docs/image-optimization-portfolio.md"],
+      "evidence_gap": "",
+      "confidence": "높음"
+    }
+  ],
+  "summary": {
+    "mapped_task_count": 16,
+    "low_confidence_task_count": 0,
+    "medium_confidence_task_count": 4,
+    "high_confidence_task_count": 12,
+    "unmapped_task_count": 0,
+    "source_of_truth": [
+      ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/git-history.json",
+      ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/task-drafts.json",
+      "README.md",
+      "docs/*.md"
+    ]
+  },
+  "output_language": "ko"
+}

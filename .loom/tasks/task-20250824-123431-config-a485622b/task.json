@@ -1,0 +1,39 @@
+{
+  "id": "task-20250824-123431-config-a485622b",
+  "job_id": "job-20250824-123031-tailscale-nginx-1de08ec4",
+  "title": "config 위치와 이미지 경로 정리",
+  "description": "루트 config 제거, 이미지 경로 수정, config 복구 판단을 거쳐 Compose가 설정을 주입하는 방향으로 정리합니다.",
+  "status": "DONE",
+  "created_at": "2025-08-24T12:34:31+09:00",
+  "updated_at": "2025-08-24T12:34:31+09:00",
+  "order_index": 2,
+  "assigned_agent": "",
+  "depends_on": [
+    "task-20250824-123031-tailscale-nginx-proxy-bf77db2a"
+  ],
+  "expected_output": "config 파일 위치와 Docker 이미지 경로가 현재 레포 구조에 맞게 정리됩니다.",
+  "done_condition": "이미지 내부 설정과 Compose 주입 설정의 책임 경계가 정리됩니다.",
+  "in_scope": "config 파일 이동/복구, image path 수정, Compose mount 조정.",
+  "out_of_scope": "Ansible template 기반 `.env` 렌더링은 후속 Job 범위입니다.",
+  "validation_hint": "`git show baa016a e08cb1c 36e9a02`로 config/path 변경을 확인합니다.",
+  "required_docs": [
+    "docs/project-state.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "baa016a",
+    "e08cb1c",
+    "36e9a02"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20250824-123431-config-a485622b/result.md",
+    ".loom/tasks/task-20250824-123431-config-a485622b/decision.md",
+    ".loom/tasks/task-20250824-123431-config-a485622b/troubleshooting.md",
+    ".loom/tasks/task-20250824-123431-config-a485622b/artifacts.json"
+  ]
+}

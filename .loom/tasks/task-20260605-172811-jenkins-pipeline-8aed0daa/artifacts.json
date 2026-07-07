@@ -1,0 +1,19 @@
+{
+  "status": "DONE",
+  "generated_at": "2026-06-05T17:28:11+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20260605-172811-jenkins-pipeline-8aed0daa/result.md",
+    ".loom/tasks/task-20260605-172811-jenkins-pipeline-8aed0daa/decision.md",
+    ".loom/tasks/task-20260605-172811-jenkins-pipeline-8aed0daa/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "8fdd415",
+    "53923d6",
+    "101f1d7"
+  ],
+  "source_docs": [
+    "docs/jenkins-migration.md",
+    "docs/deployment-ansible.md"
+  ],
+  "changed_files": []
+}

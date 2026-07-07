@@ -1,0 +1,26 @@
+{
+  "id": "job-20260701-090917-job-318bb3e3",
+  "title": "레포 작업 히스토리 복원",
+  "goal": "과거 레포 작업을 Loom Job/Task/Event 기억으로 복원합니다. 관찰된 근거와 추론된 결정을 분리하고 신뢰도를 명시합니다.",
+  "status": "DONE",
+  "created_at": "2026-07-01T09:09:17+00:00",
+  "updated_at": "2026-07-01T09:22:37+00:00",
+  "context_refs": [],
+  "task_ids": [
+    "task-20260701-090918-task-f0db697f",
+    "task-20260701-090918-job-1d75895a",
+    "task-20260701-090918-task-0d6d8405",
+    "task-20260701-090918-task-02be4231",
+    "task-20260701-090918-task-fb758d55",
+    "task-20260701-090918-workflow-memory-648238c1"
+  ],
+  "branch_name": "develop",
+  "checkpoint_ids": [
+    "checkpoint-20260701-091102-task-completed-c1a97b9e",
+    "checkpoint-20260701-091249-task-completed-job-4c3d33d8",
+    "checkpoint-20260701-091526-task-completed-task-bed69f39",
+    "checkpoint-20260701-091710-task-completed-task-c9f40ccd",
+    "checkpoint-20260701-091759-task-completed-e6162107",
+    "checkpoint-20260701-092237-task-completed-workflow-memory-d3003984"
+  ]
+}

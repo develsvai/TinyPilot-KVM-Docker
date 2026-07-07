@@ -1,0 +1,18 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-08-25T03:11:32+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250825-031132-udc-hid-readme-485bc9a3/result.md",
+    ".loom/tasks/task-20250825-031132-udc-hid-readme-485bc9a3/decision.md",
+    ".loom/tasks/task-20250825-031132-udc-hid-readme-485bc9a3/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "62fba76",
+    "15f1b47"
+  ],
+  "source_docs": [
+    "README.md",
+    "docs/project-state.md"
+  ],
+  "changed_files": []
+}

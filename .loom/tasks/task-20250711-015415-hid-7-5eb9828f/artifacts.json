@@ -1,0 +1,18 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-07-11T01:54:15+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250711-015415-hid-7-5eb9828f/result.md",
+    ".loom/tasks/task-20250711-015415-hid-7-5eb9828f/decision.md",
+    ".loom/tasks/task-20250711-015415-hid-7-5eb9828f/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "ef96125",
+    "6d0b235"
+  ],
+  "source_docs": [
+    "docs/project-state.md",
+    "README.md"
+  ],
+  "changed_files": []
+}

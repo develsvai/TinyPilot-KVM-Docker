@@ -1,0 +1,17 @@
+{
+  "id": "job-20260605-171857-jenkins-ansible-harbor-68f2aa09",
+  "title": "Jenkins와 Ansible 기반 Harbor 배포 흐름 현대화",
+  "goal": "Jenkins Git Pipeline, Harbor 이미지 push, Ansible bastion 배포, Tailscale HTTPS 제공까지 이어지는 현대화된 배포 흐름을 구성합니다.",
+  "status": "DONE",
+  "created_at": "2026-06-05T17:18:57+09:00",
+  "updated_at": "2026-06-05T18:08:46+09:00",
+  "context_refs": [],
+  "task_ids": [
+    "task-20260605-171857-ansible-jenkins-114ca682",
+    "task-20260605-172811-jenkins-pipeline-8aed0daa",
+    "task-20260605-173702-bastion-harbor-arm64-runtime-dd681718",
+    "task-20260605-180846-tailscale-auth-key-https-serving-fb709860"
+  ],
+  "branch_name": "",
+  "checkpoint_ids": []
+}

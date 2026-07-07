@@ -1,0 +1,15 @@
+{
+  "id": "job-20250825-030738-hid-8bdb752a",
+  "title": "로컬 실행 스크립트와 HID 설정 검증 보강",
+  "goal": "run script와 UDC/HID 설정 검증을 추가하고 README를 보강해 수동 실행 흐름을 안정화합니다.",
+  "status": "DONE",
+  "created_at": "2025-08-25T03:07:38+09:00",
+  "updated_at": "2025-08-25T03:11:32+09:00",
+  "context_refs": [],
+  "task_ids": [
+    "task-20250825-030738-run-script-68599c5d",
+    "task-20250825-031132-udc-hid-readme-485bc9a3"
+  ],
+  "branch_name": "",
+  "checkpoint_ids": []
+}

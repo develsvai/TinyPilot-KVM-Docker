@@ -1,0 +1,94 @@
+{
+  "schema_version": 2,
+  "import_id": "import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d",
+  "job_id": "job-20260701-090917-job-318bb3e3",
+  "created_at": "2026-07-01T09:09:18+00:00",
+  "source_root": "/Users/hongyongjae/Desktop/TinyPilot-KVM-Docker",
+  "since": "",
+  "until": "",
+  "max_commits": 200,
+  "scan_coverage": {
+    "requested_max_commits": 200,
+    "scanned_commit_count": 31,
+    "repository_commit_count": 31,
+    "oldest_scanned_commit": "c11a70233f98",
+    "newest_scanned_commit": "f3e43c5f5196",
+    "oldest_scanned_at": "2025-06-28T23:15:38+09:00",
+    "newest_scanned_at": "2026-06-05T20:52:27+09:00",
+    "history_truncated": false,
+    "omitted_commit_count": 0,
+    "omitted_ranges": []
+  },
+  "mode": "workflow-first",
+  "principle": "Observed evidence and inferred decisions must remain separate.",
+  "output_language": "ko",
+  "language_contract": {
+    "output_language": "ko",
+    "structured_fields": [
+      "title",
+      "goal",
+      "job_title",
+      "description",
+      "expected_output",
+      "done_condition",
+      "in_scope",
+      "out_of_scope",
+      "validation_hint",
+      "result_markdown",
+      "decision_markdown",
+      "troubleshooting_markdown",
+      "confidence_reason",
+      "open_questions",
+      "evidence_gap",
+      "risk",
+      "next_action",
+      "original_created_at",
+      "commit_refs",
+      "source_docs",
+      "changed_files",
+      "required_docs"
+    ],
+    "immutable_fields": [
+      "code identifiers",
+      "file paths",
+      "shell commands",
+      "URLs",
+      "commit hashes",
+      "original commit subjects"
+    ],
+    "rule": "사용자에게 보이는 모든 구조화 필드와 markdown 본문은 한국어로 작성해야 합니다. 코드 식별자, 파일 경로, 명령어, URL, 커밋 해시, 원본 커밋 subject는 원문 그대로 유지합니다."
+  },
+  "display_policy": {
+    "principle": "사용자에게 보이는 Job, Task, result, decision, troubleshooting은 복원 작업 로그가 아니라 원래 그 시점의 작업 기록처럼 읽혀야 합니다.",
+    "audit_only_terms": [
+      "[복원]",
+      "historical-import",
+      "복원 결과",
+      "DONE으로 보정",
+      "confidence",
+      "inferred_from",
+      "source_refs"
+    ],
+    "audit_only_locations": [
+      ".loom/imports/<import-id>/manifest.json",
+      ".loom/imports/<import-id>/audit-metadata.json",
+      ".loom/imports/<import-id>/confidence-review.md",
+      ".loom/imports/<import-id>/reconstruction-report.md"
+    ],
+    "user_facing_rule": "restore/import 신뢰도 메타데이터는 최종 Job/Task 제목과 markdown 본문에 섞지 않습니다. commit refs, source docs, changed files는 별도 근거 필드로 연결합니다."
+  },
+  "evidence_policy": {
+    "required_task_fields": [
+      "original_created_at",
+      "commit_refs",
+      "source_docs",
+      "changed_files",
+      "required_docs",
+      "result_markdown",
+      "decision_markdown",
+      "troubleshooting_markdown"
+    ],
+    "noise_task_policy": "Submodule pointer updates and docs-only bookkeeping should be attached as evidence, note, or audit event unless they changed the user-visible workflow.",
+    "original_time_policy": "When applying reviewed drafts, created_at and generated IDs should use the original work date where evidence is strong enough."
+  }
+}

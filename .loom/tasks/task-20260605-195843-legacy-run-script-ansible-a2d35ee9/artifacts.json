@@ -1,0 +1,19 @@
+{
+  "status": "DONE",
+  "generated_at": "2026-06-05T19:58:43+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20260605-195843-legacy-run-script-ansible-a2d35ee9/result.md",
+    ".loom/tasks/task-20260605-195843-legacy-run-script-ansible-a2d35ee9/decision.md",
+    ".loom/tasks/task-20260605-195843-legacy-run-script-ansible-a2d35ee9/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "7346ff0",
+    "f2dde7c"
+  ],
+  "source_docs": [
+    "docs/deployment-ansible.md",
+    "docs/operational-checklist.md",
+    "docs/project-state.md"
+  ],
+  "changed_files": []
+}

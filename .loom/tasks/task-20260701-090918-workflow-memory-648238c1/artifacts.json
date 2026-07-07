@@ -1,0 +1,19 @@
+{
+  "status": "DONE",
+  "agent": "foreground",
+  "mode": "foreground",
+  "task_run_id": "task-run-20260701-091809-task-def-20260701-090918-workflow-memory-b155a7c-ab872834",
+  "generated_at": "2026-07-01T09:22:37+00:00",
+  "artifacts": [
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/prompt.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/context.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/previous-results.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/git-snapshot.json",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/result.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/decision.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/troubleshooting.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/logs.txt",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/agent-events.jsonl",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/artifacts.json"
+  ]
+}

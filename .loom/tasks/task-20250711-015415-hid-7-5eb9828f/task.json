@@ -1,0 +1,39 @@
+{
+  "id": "task-20250711-015415-hid-7-5eb9828f",
+  "job_id": "job-20250628-231538-tinypilot-docker-hid-1571c145",
+  "title": "마우스 HID 디스크립터 7바이트 처리 수정",
+  "description": "TinyPilot이 보내는 7바이트 마우스 리포트와 커널이 기대하는 리포트 길이 차이로 생긴 인식 문제를 해결합니다.",
+  "status": "DONE",
+  "created_at": "2025-07-11T01:54:15+09:00",
+  "updated_at": "2025-07-11T01:54:15+09:00",
+  "order_index": 4,
+  "assigned_agent": "",
+  "depends_on": [
+    "task-20250711-002629-ustreamer-d75645a7"
+  ],
+  "expected_output": "마우스 디스크립터가 7바이트 입력을 수신하되 휠 2바이트를 무시하는 방식으로 조정됩니다.",
+  "done_condition": "마우스 인식 불가, 커서 고정, 우클릭 반복 문제의 핵심 원인이 문서화되고 수정됩니다.",
+  "in_scope": "HID mouse descriptor 조정, README 보강.",
+  "out_of_scope": "키보드 HID 동작 변경은 명시 근거가 있을 때만 포함합니다.",
+  "validation_hint": "`docs/project-state.md`의 HID Gadget 섹션과 `git show ef96125`를 대조합니다.",
+  "required_docs": [
+    "docs/project-state.md",
+    "README.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "ef96125",
+    "6d0b235"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20250711-015415-hid-7-5eb9828f/result.md",
+    ".loom/tasks/task-20250711-015415-hid-7-5eb9828f/decision.md",
+    ".loom/tasks/task-20250711-015415-hid-7-5eb9828f/troubleshooting.md",
+    ".loom/tasks/task-20250711-015415-hid-7-5eb9828f/artifacts.json"
+  ]
+}

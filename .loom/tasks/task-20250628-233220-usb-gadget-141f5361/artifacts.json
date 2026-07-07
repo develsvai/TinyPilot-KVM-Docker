@@ -1,0 +1,18 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-06-28T23:32:20+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250628-233220-usb-gadget-141f5361/result.md",
+    ".loom/tasks/task-20250628-233220-usb-gadget-141f5361/decision.md",
+    ".loom/tasks/task-20250628-233220-usb-gadget-141f5361/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "8207905",
+    "86705c8"
+  ],
+  "source_docs": [
+    "docs/project-state.md",
+    "images/tinypilot/docs/usb-gadget-driver.md"
+  ],
+  "changed_files": []
+}

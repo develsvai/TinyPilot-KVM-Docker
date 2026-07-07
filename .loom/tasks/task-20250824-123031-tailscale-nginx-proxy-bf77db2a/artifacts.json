@@ -1,0 +1,17 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-08-24T12:30:31+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250824-123031-tailscale-nginx-proxy-bf77db2a/result.md",
+    ".loom/tasks/task-20250824-123031-tailscale-nginx-proxy-bf77db2a/decision.md",
+    ".loom/tasks/task-20250824-123031-tailscale-nginx-proxy-bf77db2a/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "8370b58"
+  ],
+  "source_docs": [
+    "README.md",
+    "docs/routing-and-serving.md"
+  ],
+  "changed_files": []
+}

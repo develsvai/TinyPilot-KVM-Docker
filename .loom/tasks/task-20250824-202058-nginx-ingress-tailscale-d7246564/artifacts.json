@@ -1,0 +1,18 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-08-24T20:20:58+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250824-202058-nginx-ingress-tailscale-d7246564/result.md",
+    ".loom/tasks/task-20250824-202058-nginx-ingress-tailscale-d7246564/decision.md",
+    ".loom/tasks/task-20250824-202058-nginx-ingress-tailscale-d7246564/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "572b807",
+    "4c6be29"
+  ],
+  "source_docs": [
+    "docs/routing-and-serving.md",
+    "README.md"
+  ],
+  "changed_files": []
+}

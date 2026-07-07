@@ -1,0 +1,39 @@
+{
+  "id": "task-20260605-202509-dockerfile-881fe9be",
+  "job_id": "job-20260605-195843-immutable-image-tag-cf3eaa93",
+  "title": "사용하지 않는 원본 Dockerfile 제거",
+  "description": "최적화 Dockerfile만 운영 빌드 경로에 남기고 unused original Dockerfile을 제거합니다.",
+  "status": "DONE",
+  "created_at": "2026-06-05T20:25:09+09:00",
+  "updated_at": "2026-06-05T20:25:09+09:00",
+  "order_index": 2,
+  "assigned_agent": "",
+  "depends_on": [
+    "task-20260605-195843-legacy-run-script-ansible-a2d35ee9"
+  ],
+  "expected_output": "레포의 Dockerfile 구조가 optimized 운영 빌드 기준으로 정리됩니다.",
+  "done_condition": "Jenkins/문서가 `.optimized` Dockerfile을 기준으로 설명하고 unused original Dockerfile이 남지 않습니다.",
+  "in_scope": "원본 Dockerfile 제거, 문서 보강.",
+  "out_of_scope": "이미지 태그 정책 변경은 별도 Task입니다.",
+  "validation_hint": "`git show 993ac89`와 `docs/project-state.md`를 확인합니다.",
+  "required_docs": [
+    "docs/project-state.md",
+    "docs/archive/README.md",
+    "docs/image-optimization-portfolio.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "993ac89"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20260605-202509-dockerfile-881fe9be/result.md",
+    ".loom/tasks/task-20260605-202509-dockerfile-881fe9be/decision.md",
+    ".loom/tasks/task-20260605-202509-dockerfile-881fe9be/troubleshooting.md",
+    ".loom/tasks/task-20260605-202509-dockerfile-881fe9be/artifacts.json"
+  ]
+}

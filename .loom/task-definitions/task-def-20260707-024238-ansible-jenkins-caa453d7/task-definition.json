@@ -1,0 +1,27 @@
+{
+  "id": "task-def-20260707-024238-ansible-jenkins-caa453d7",
+  "job_definition_id": "job-20260605-171857-jenkins-ansible-harbor-68f2aa09",
+  "title": "Ansible/Jenkins 배포 기준선 문서화와 구조 추가",
+  "description": "Ansible deploy, Jenkinsfile, Harbor 이미지, 최적화 Dockerfile, 운영 문서를 한 번에 정리해 현대화 기준선을 만듭니다.",
+  "created_at": "2026-07-07T02:42:38+00:00",
+  "updated_at": "2026-07-07T02:42:38+00:00",
+  "order_index": 1,
+  "legacy_task_id": "task-20260605-171857-ansible-jenkins-114ca682",
+  "depends_on": [],
+  "expected_output": "Ansible, Jenkins, docs, optimized Dockerfile, `.env.example`이 현재 운영 방향에 맞게 추가/정리됩니다.",
+  "done_condition": "Git repository 기반 Jenkins Pipeline과 Ansible bastion 배포를 이어갈 기준선이 생깁니다.",
+  "in_scope": "문서 정리, Ansible playbook/template, Jenkinsfile, optimized Dockerfile.",
+  "out_of_scope": "후속 Jenkins 실패 수정 커밋은 별도 Task로 분리합니다.",
+  "validation_hint": "`git show --stat de632bb`와 `docs/deployment-ansible.md`를 확인합니다.",
+  "required_docs": [
+    "README.md",
+    "docs/deployment-ansible.md",
+    "docs/jenkins-migration.md",
+    "docs/project-state.md"
+  ],
+  "memory_refs": [],
+  "default_agent": "",
+  "context_policy_id": "",
+  "executor_policy_id": "",
+  "review_policy": ""
+}

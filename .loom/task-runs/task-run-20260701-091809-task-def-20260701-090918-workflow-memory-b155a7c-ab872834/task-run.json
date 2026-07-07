@@ -1,0 +1,40 @@
+{
+  "id": "task-run-20260701-091809-task-def-20260701-090918-workflow-memory-b155a7c-ab872834",
+  "job_run_id": "job-run-20260701-090953-job-20260701-090917-job-318bb3e3-70b19333",
+  "task_definition_id": "task-def-20260701-090918-workflow-memory-b155a7c1",
+  "status": "DONE",
+  "created_at": "2026-07-01T09:18:09+00:00",
+  "updated_at": "2026-07-01T09:22:37+00:00",
+  "legacy_task_id": "task-20260701-090918-workflow-memory-648238c1",
+  "attempt": 1,
+  "assigned_agent": "foreground",
+  "worker_id": "",
+  "heartbeat_at": "",
+  "lease_expires_at": "",
+  "queued_at": "",
+  "started_at": "2026-07-01T09:18:09+00:00",
+  "completed_at": "2026-07-01T09:22:37+00:00",
+  "last_error": "",
+  "commit_refs": [
+    "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f"
+  ],
+  "branch_name": "develop",
+  "git_dirty": true,
+  "git_snapshot_captured_at": "2026-07-01T09:22:37+00:00",
+  "artifacts": [
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/agent-events.jsonl",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/artifacts.json",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/context.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/decision.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/git-snapshot.json",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/logs.txt",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/previous-results.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/prompt.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/result.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/troubleshooting.md"
+  ],
+  "checkpoint_ids": [
+    "checkpoint-20260701-092237-task-completed-workflow-memory-d3003984"
+  ],
+  "review_required_reason": ""
+}

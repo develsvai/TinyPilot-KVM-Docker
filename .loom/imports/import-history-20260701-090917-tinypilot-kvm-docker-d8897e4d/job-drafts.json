@@ -1,0 +1,202 @@
+{
+  "jobs": [
+    {
+      "draft_id": "draft-job-001",
+      "title": "TinyPilot Docker 기반과 HID 입력 구성 복원",
+      "goal": "TinyPilot과 uStreamer를 Docker Compose 기반으로 실행하고 USB Gadget HID 입력 문제를 해결한 초기 작업 흐름을 복원합니다.",
+      "period": {
+        "start": "2025-06-28T23:15:38+09:00",
+        "end": "2025-07-11T02:33:36+09:00"
+      },
+      "commit_refs": [
+        "c11a70233f98",
+        "8207905",
+        "86705c8",
+        "752f760",
+        "ef96125",
+        "6d0b235"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/project-state.md",
+        "images/tinypilot/docs/usb-gadget-driver.md",
+        "images/tinypilot/docs/user-configurable-settings.md"
+      ],
+      "evidence_refs": [
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/git-history.json",
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/repo-scan.md"
+      ],
+      "confidence": "높음",
+      "confidence_reason": "초기 커밋, config 추가, gadget 설정, uStreamer 옵션 변경, 마우스 디스크립터 수정 커밋이 시간순으로 연결되고 `docs/project-state.md`가 HID 7바이트 마우스 처리 판단을 명시합니다.",
+      "open_questions": [
+        "초기 `config.py`의 구체적 역할은 변경 파일 상세 확인을 통해 Task 단계에서 더 분리할 수 있습니다."
+      ]
+    },
+    {
+      "draft_id": "draft-job-002",
+      "title": "Tailscale 원격 접속과 nginx 프록시 라우팅 구성",
+      "goal": "Tailscale 컨테이너와 내부 nginx proxy를 Compose 배포에 통합하고 TinyPilot/uStreamer 라우팅 구조를 정리합니다.",
+      "period": {
+        "start": "2025-08-24T12:30:31+09:00",
+        "end": "2025-08-24T20:42:45+09:00"
+      },
+      "commit_refs": [
+        "8370b58",
+        "baa016a",
+        "e08cb1c",
+        "36e9a02",
+        "572b807",
+        "4c6be29"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/routing-and-serving.md",
+        "docs/project-state.md",
+        "docs/operational-checklist.md"
+      ],
+      "evidence_refs": [
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/git-history.json",
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/source-docs.json"
+      ],
+      "confidence": "높음",
+      "confidence_reason": "Tailscale 이미지 추가, auth key/hostname 환경변수, nginx ingress 비활성화, 파일명 변경 커밋이 같은 날짜에 집중되어 있고 README가 Tailscale reverse proxy를 현재 원격 접속 방식으로 설명합니다.",
+      "open_questions": [
+        "초기 nginx 설정 파일명 변경의 세부 의도는 커밋 diff 기반 Task 후보에서 보강할 수 있습니다."
+      ]
+    },
+    {
+      "draft_id": "draft-job-003",
+      "title": "로컬 실행 스크립트와 HID 설정 검증 보강",
+      "goal": "run script와 UDC/HID 설정 검증을 추가하고 README를 보강해 수동 실행 흐름을 안정화합니다.",
+      "period": {
+        "start": "2025-08-25T03:07:38+09:00",
+        "end": "2025-09-07T19:28:40+09:00"
+      },
+      "commit_refs": [
+        "336791e",
+        "62fba76",
+        "15f1b47"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/project-state.md",
+        "docs/operational-checklist.md"
+      ],
+      "evidence_refs": [
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/git-history.json"
+      ],
+      "confidence": "중간",
+      "confidence_reason": "세 커밋이 실행 파일 추가, UDC/HID 설정 검증, README 수정으로 이어지지만 현재 문서에서는 이후 Ansible 배포 흐름이 더 강하게 남아 있어 과거 run script의 최종 운영 여부는 낮은 확신입니다.",
+      "open_questions": [
+        "legacy run script가 실제 운영에 쓰였는지, 아니면 이후 Ansible 전환 전 임시 수단이었는지 확인이 필요합니다."
+      ]
+    },
+    {
+      "draft_id": "draft-job-004",
+      "title": "Jenkins와 Ansible 기반 Harbor 배포 흐름 현대화",
+      "goal": "Jenkins Git Pipeline, Harbor 이미지 push, Ansible bastion 배포, Tailscale HTTPS 제공까지 이어지는 현대화된 배포 흐름을 구성합니다.",
+      "period": {
+        "start": "2026-06-05T17:18:57+09:00",
+        "end": "2026-06-05T18:35:58+09:00"
+      },
+      "commit_refs": [
+        "de632bb",
+        "8fdd415",
+        "53923d6",
+        "101f1d7",
+        "707353e",
+        "5f61319",
+        "ca67c26",
+        "53a625c",
+        "17c5aa2",
+        "61f01b3",
+        "e64526a",
+        "ca64fad"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/deployment-ansible.md",
+        "docs/jenkins-migration.md",
+        "docs/routing-and-serving.md",
+        "docs/project-state.md"
+      ],
+      "evidence_refs": [
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/git-history.json",
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/source-docs.json"
+      ],
+      "confidence": "높음",
+      "confidence_reason": "2026-06-05의 연속 커밋이 Jenkins 옵션 제거, sshagent 의존성 제거, dockerized Ansible runner, bastion sudo/docker 권한, Harbor 인증서, arm64 빌드, binfmt, uStreamer runtime, Tailscale auth key 보호, HTTPS 라우팅으로 같은 배포 복구 흐름을 형성합니다.",
+      "open_questions": [
+        "각 fix가 실제 Jenkins 실패 로그에서 나온 것인지 여부는 레포 내 커밋 subject와 문서만으로는 완전히 확인되지 않습니다."
+      ]
+    },
+    {
+      "draft_id": "draft-job-005",
+      "title": "배포 흐름 정리와 immutable image tag 강제",
+      "goal": "legacy run script와 원본 Dockerfile을 제거하고 Ansible/Compose 배포가 12자리 Git SHA 이미지 태그만 사용하도록 정리합니다.",
+      "period": {
+        "start": "2026-06-05T19:58:43+09:00",
+        "end": "2026-06-05T20:52:27+09:00"
+      },
+      "commit_refs": [
+        "7346ff0",
+        "f2dde7c",
+        "993ac89",
+        "f3e43c5"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/project-state.md",
+        "docs/deployment-ansible.md",
+        "docs/image-optimization-portfolio.md"
+      ],
+      "evidence_refs": [
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/git-history.json",
+        ".loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/repo-scan.md"
+      ],
+      "confidence": "높음",
+      "confidence_reason": "커밋 subject가 legacy run script 제거, Ansible 배포 스크립트 통합, unused original Dockerfile 제거, immutable image tag 강제를 직접 설명하며 `docs/project-state.md`도 현재 Compose가 `IMAGE_TAG`를 필수로 요구한다고 명시합니다.",
+      "open_questions": [
+        "최종 tag 검증 정책의 정확한 구현 위치는 Task 후보와 evidence-map 단계에서 파일 단위로 확인해야 합니다."
+      ]
+    }
+  ],
+  "note": "과거 Job 경계 초안입니다. 최종 Loom Job/Task 반영 전 Task 후보 복원, evidence-map, confidence review를 거쳐야 합니다.",
+  "output_language": "ko",
+  "language_contract": {
+    "output_language": "ko",
+    "structured_fields": [
+      "title",
+      "goal",
+      "job_title",
+      "description",
+      "expected_output",
+      "done_condition",
+      "in_scope",
+      "out_of_scope",
+      "validation_hint",
+      "result_markdown",
+      "decision_markdown",
+      "troubleshooting_markdown",
+      "confidence_reason",
+      "open_questions",
+      "evidence_gap",
+      "risk",
+      "next_action",
+      "original_created_at",
+      "commit_refs",
+      "source_docs",
+      "changed_files",
+      "required_docs"
+    ],
+    "immutable_fields": [
+      "code identifiers",
+      "file paths",
+      "shell commands",
+      "URLs",
+      "commit hashes",
+      "original commit subjects"
+    ],
+    "rule": "사용자에게 보이는 모든 구조화 필드와 markdown 본문은 한국어로 작성해야 합니다. 코드 식별자, 파일 경로, 명령어, URL, 커밋 해시, 원본 커밋 subject는 원문 그대로 유지합니다."
+  }
+}

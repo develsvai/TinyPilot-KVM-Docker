@@ -1,0 +1,20 @@
+{
+  "status": "DONE",
+  "generated_at": "2026-06-05T18:08:46+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20260605-180846-tailscale-auth-key-https-serving-fb709860/result.md",
+    ".loom/tasks/task-20260605-180846-tailscale-auth-key-https-serving-fb709860/decision.md",
+    ".loom/tasks/task-20260605-180846-tailscale-auth-key-https-serving-fb709860/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "61f01b3",
+    "e64526a",
+    "ca64fad"
+  ],
+  "source_docs": [
+    "docs/deployment-ansible.md",
+    "docs/routing-and-serving.md",
+    "docs/operational-checklist.md"
+  ],
+  "changed_files": []
+}

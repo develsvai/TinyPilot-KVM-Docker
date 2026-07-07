@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "import_id": "import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d",
+  "generated_at": "2026-07-07T02:58:07+00:00",
+  "executed": false,
+  "summary": {
+    "jobs": 0,
+    "tasks": 0
+  },
+  "actions": []
+}

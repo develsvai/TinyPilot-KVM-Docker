@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "import_id": "import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d",
+  "generated_at": "2026-07-07T02:42:38+00:00",
+  "executed": true,
+  "mode": "execute",
+  "summary": {
+    "jobs": 5,
+    "tasks": 16
+  },
+  "actions": [
+    {
+      "type": "job",
+      "draft_id": "draft-job-001",
+      "title": "TinyPilot Docker 기반과 HID 입력 구성 복원",
+      "original_created_at": "2025-06-28T23:15:38+09:00",
+      "task_count": 4,
+      "status": "DONE",
+      "job_id": "job-20250628-231538-tinypilot-docker-hid-1571c145"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-001",
+      "draft_id": "task-draft-1",
+      "title": "Docker Compose 기반 TinyPilot 배포 초기화",
+      "original_created_at": "2025-06-28T23:15:38+09:00",
+      "commit_refs": [
+        "c11a70233f98"
+      ],
+      "source_docs": [
+        "README.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250628-231538-docker-compose-tinypilot-3d030784"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-001",
+      "draft_id": "task-draft-2",
+      "title": "설정 파일과 USB Gadget 구성 추가",
+      "original_created_at": "2025-06-28T23:32:20+09:00",
+      "commit_refs": [
+        "8207905",
+        "86705c8"
+      ],
+      "source_docs": [
+        "docs/project-state.md",
+        "images/tinypilot/docs/usb-gadget-driver.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250628-233220-usb-gadget-141f5361"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-001",
+      "draft_id": "task-draft-3",
+      "title": "uStreamer 해상도 옵션 조정",
+      "original_created_at": "2025-07-11T00:26:29+09:00",
+      "commit_refs": [
+        "752f760"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/routing-and-serving.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250711-002629-ustreamer-d75645a7"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-001",
+      "draft_id": "task-draft-4",
+      "title": "마우스 HID 디스크립터 7바이트 처리 수정",
+      "original_created_at": "2025-07-11T01:54:15+09:00",
+      "commit_refs": [
+        "ef96125",
+        "6d0b235"
+      ],
+      "source_docs": [
+        "docs/project-state.md",
+        "README.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250711-015415-hid-7-5eb9828f"
+    },
+    {
+      "type": "job",
+      "draft_id": "draft-job-002",
+      "title": "Tailscale 원격 접속과 nginx 프록시 라우팅 구성",
+      "original_created_at": "2025-08-24T12:30:31+09:00",
+      "task_count": 3,
+      "status": "DONE",
+      "job_id": "job-20250824-123031-tailscale-nginx-1de08ec4"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-002",
+      "draft_id": "task-draft-1",
+      "title": "Tailscale 컨테이너와 내부 nginx proxy 추가",
+      "original_created_at": "2025-08-24T12:30:31+09:00",
+      "commit_refs": [
+        "8370b58"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/routing-and-serving.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250824-123031-tailscale-nginx-proxy-bf77db2a"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-002",
+      "draft_id": "task-draft-2",
+      "title": "config 위치와 이미지 경로 정리",
+      "original_created_at": "2025-08-24T12:34:31+09:00",
+      "commit_refs": [
+        "baa016a",
+        "e08cb1c",
+        "36e9a02"
+      ],
+      "source_docs": [
+        "docs/project-state.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250824-123431-config-a485622b"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-002",
+      "draft_id": "task-draft-3",
+      "title": "nginx ingress 비활성화와 Tailscale 파일명 정리",
+      "original_created_at": "2025-08-24T20:20:58+09:00",
+      "commit_refs": [
+        "572b807",
+        "4c6be29"
+      ],
+      "source_docs": [
+        "docs/routing-and-serving.md",
+        "README.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250824-202058-nginx-ingress-tailscale-d7246564"
+    },
+    {
+      "type": "job",
+      "draft_id": "draft-job-003",
+      "title": "로컬 실행 스크립트와 HID 설정 검증 보강",
+      "original_created_at": "2025-08-25T03:07:38+09:00",
+      "task_count": 2,
+      "status": "DONE",
+      "job_id": "job-20250825-030738-hid-8bdb752a"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-003",
+      "draft_id": "task-draft-1",
+      "title": "수동 실행용 run script 추가",
+      "original_created_at": "2025-08-25T03:07:38+09:00",
+      "commit_refs": [
+        "336791e"
+      ],
+      "source_docs": [
+        "README.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250825-030738-run-script-68599c5d"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-003",
+      "draft_id": "task-draft-2",
+      "title": "UDC/HID 설정 검증과 README 보강",
+      "original_created_at": "2025-08-25T03:11:32+09:00",
+      "commit_refs": [
+        "62fba76",
+        "15f1b47"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/project-state.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20250825-031132-udc-hid-readme-485bc9a3"
+    },
+    {
+      "type": "job",
+      "draft_id": "draft-job-004",
+      "title": "Jenkins와 Ansible 기반 Harbor 배포 흐름 현대화",
+      "original_created_at": "2026-06-05T17:18:57+09:00",
+      "task_count": 4,
+      "status": "DONE",
+      "job_id": "job-20260605-171857-jenkins-ansible-harbor-68f2aa09"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-004",
+      "draft_id": "task-draft-1",
+      "title": "Ansible/Jenkins 배포 기준선 문서화와 구조 추가",
+      "original_created_at": "2026-06-05T17:18:57+09:00",
+      "commit_refs": [
+        "de632bb"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/deployment-ansible.md",
+        "docs/jenkins-migration.md",
+        "docs/project-state.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20260605-171857-ansible-jenkins-114ca682"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-004",
+      "draft_id": "task-draft-2",
+      "title": "Jenkins Pipeline 실행 의존성 수정",
+      "original_created_at": "2026-06-05T17:28:11+09:00",
+      "commit_refs": [
+        "8fdd415",
+        "53923d6",
+        "101f1d7"
+      ],
+      "source_docs": [
+        "docs/jenkins-migration.md",
+        "docs/deployment-ansible.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20260605-172811-jenkins-pipeline-8aed0daa"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-004",
+      "draft_id": "task-draft-3",
+      "title": "bastion 배포와 Harbor/arm64/runtime 문제 해결",
+      "original_created_at": "2026-06-05T17:37:02+09:00",
+      "commit_refs": [
+        "707353e",
+        "5f61319",
+        "ca67c26",
+        "53a625c",
+        "17c5aa2"
+      ],
+      "source_docs": [
+        "docs/deployment-ansible.md",
+        "docs/jenkins-migration.md",
+        "docs/project-state.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20260605-173702-bastion-harbor-arm64-runtime-dd681718"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-004",
+      "draft_id": "task-draft-4",
+      "title": "Tailscale auth key 보호와 HTTPS serving 수정",
+      "original_created_at": "2026-06-05T18:08:46+09:00",
+      "commit_refs": [
+        "61f01b3",
+        "e64526a",
+        "ca64fad"
+      ],
+      "source_docs": [
+        "docs/deployment-ansible.md",
+        "docs/routing-and-serving.md",
+        "docs/operational-checklist.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20260605-180846-tailscale-auth-key-https-serving-fb709860"
+    },
+    {
+      "type": "job",
+      "draft_id": "draft-job-005",
+      "title": "배포 흐름 정리와 immutable image tag 강제",
+      "original_created_at": "2026-06-05T19:58:43+09:00",
+      "task_count": 3,
+      "status": "DONE",
+      "job_id": "job-20260605-195843-immutable-image-tag-cf3eaa93"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-005",
+      "draft_id": "task-draft-1",
+      "title": "legacy run script 제거와 Ansible 배포 스크립트 통합",
+      "original_created_at": "2026-06-05T19:58:43+09:00",
+      "commit_refs": [
+        "7346ff0",
+        "f2dde7c"
+      ],
+      "source_docs": [
+        "docs/deployment-ansible.md",
+        "docs/operational-checklist.md",
+        "docs/project-state.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20260605-195843-legacy-run-script-ansible-a2d35ee9"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-005",
+      "draft_id": "task-draft-2",
+      "title": "사용하지 않는 원본 Dockerfile 제거",
+      "original_created_at": "2026-06-05T20:25:09+09:00",
+      "commit_refs": [
+        "993ac89"
+      ],
+      "source_docs": [
+        "docs/project-state.md",
+        "docs/archive/README.md",
+        "docs/image-optimization-portfolio.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20260605-202509-dockerfile-881fe9be"
+    },
+    {
+      "type": "task",
+      "job_draft_id": "draft-job-005",
+      "draft_id": "task-draft-3",
+      "title": "12자리 Git SHA immutable image tag 강제",
+      "original_created_at": "2026-06-05T20:52:27+09:00",
+      "commit_refs": [
+        "f3e43c5"
+      ],
+      "source_docs": [
+        "README.md",
+        "docs/project-state.md",
+        "docs/deployment-ansible.md",
+        "docs/image-optimization-portfolio.md"
+      ],
+      "changed_files": [],
+      "status": "DONE",
+      "task_id": "task-20260605-205227-12-git-sha-immutable-image-tag-9e397328"
+    }
+  ]
+}

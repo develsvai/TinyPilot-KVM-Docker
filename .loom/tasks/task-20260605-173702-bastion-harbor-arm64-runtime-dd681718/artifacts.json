@@ -1,0 +1,22 @@
+{
+  "status": "DONE",
+  "generated_at": "2026-06-05T17:37:02+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20260605-173702-bastion-harbor-arm64-runtime-dd681718/result.md",
+    ".loom/tasks/task-20260605-173702-bastion-harbor-arm64-runtime-dd681718/decision.md",
+    ".loom/tasks/task-20260605-173702-bastion-harbor-arm64-runtime-dd681718/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "707353e",
+    "5f61319",
+    "ca67c26",
+    "53a625c",
+    "17c5aa2"
+  ],
+  "source_docs": [
+    "docs/deployment-ansible.md",
+    "docs/jenkins-migration.md",
+    "docs/project-state.md"
+  ],
+  "changed_files": []
+}

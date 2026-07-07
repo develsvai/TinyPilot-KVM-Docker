@@ -1,0 +1,40 @@
+{
+  "id": "task-20260605-205227-12-git-sha-immutable-image-tag-9e397328",
+  "job_id": "job-20260605-195843-immutable-image-tag-cf3eaa93",
+  "title": "12자리 Git SHA immutable image tag 강제",
+  "description": "Compose와 Ansible/Jenkins 배포가 mutable tag 대신 12자리 Git commit SHA 이미지 태그를 요구하도록 강제합니다.",
+  "status": "DONE",
+  "created_at": "2026-06-05T20:52:27+09:00",
+  "updated_at": "2026-06-05T20:52:27+09:00",
+  "order_index": 3,
+  "assigned_agent": "",
+  "depends_on": [
+    "task-20260605-202509-dockerfile-881fe9be"
+  ],
+  "expected_output": "`IMAGE_TAG`가 필수화되고 Ansible도 12자리 commit tag만 허용합니다.",
+  "done_condition": "배포가 재현 가능한 immutable image tag를 사용합니다.",
+  "in_scope": "`.env.example`, `docker-compose.yml`, Ansible validation, Jenkins tag generation, 문서 업데이트.",
+  "out_of_scope": "새로운 registry 운영 정책 추가는 별도 후속 작업입니다.",
+  "validation_hint": "`git show f3e43c5`와 `docs/project-state.md`의 Harbor 이미지 섹션을 확인합니다.",
+  "required_docs": [
+    "README.md",
+    "docs/project-state.md",
+    "docs/deployment-ansible.md",
+    "docs/image-optimization-portfolio.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "f3e43c5"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20260605-205227-12-git-sha-immutable-image-tag-9e397328/result.md",
+    ".loom/tasks/task-20260605-205227-12-git-sha-immutable-image-tag-9e397328/decision.md",
+    ".loom/tasks/task-20260605-205227-12-git-sha-immutable-image-tag-9e397328/troubleshooting.md",
+    ".loom/tasks/task-20260605-205227-12-git-sha-immutable-image-tag-9e397328/artifacts.json"
+  ]
+}

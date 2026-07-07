@@ -1,0 +1,19 @@
+{
+  "id": "checkpoint-20260701-091759-task-completed-e6162107",
+  "created_at": "2026-07-01T09:17:59+00:00",
+  "reason": "Task completed: 복원 신뢰도 검토",
+  "summary": "복원 신뢰도 검토 -> DONE @ develop/f3e43c5f5196",
+  "job_id": "job-20260701-090917-job-318bb3e3",
+  "task_id": "task-20260701-090918-task-fb758d55",
+  "commit_sha": "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f",
+  "branch_name": "develop",
+  "dirty": true,
+  "staged_files": [],
+  "modified_files": [],
+  "untracked_files": [
+    ".loom/",
+    "AGENTS.md"
+  ],
+  "snapshot_captured_at": "2026-07-01T09:17:59+00:00",
+  "rollback_strategy": "revert-or-branch"
+}

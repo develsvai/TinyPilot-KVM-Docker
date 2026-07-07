@@ -1,0 +1,28 @@
+{
+  "before": {
+    "available": true,
+    "branch_name": "develop",
+    "commit_sha": "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f",
+    "dirty": true,
+    "staged_files": [],
+    "modified_files": [],
+    "untracked_files": [
+      ".loom/",
+      "AGENTS.md"
+    ],
+    "captured_at": "2026-07-01T09:15:35+00:00"
+  },
+  "after": {
+    "available": true,
+    "branch_name": "develop",
+    "commit_sha": "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f",
+    "dirty": true,
+    "staged_files": [],
+    "modified_files": [],
+    "untracked_files": [
+      ".loom/",
+      "AGENTS.md"
+    ],
+    "captured_at": "2026-07-01T09:17:10+00:00"
+  }
+}

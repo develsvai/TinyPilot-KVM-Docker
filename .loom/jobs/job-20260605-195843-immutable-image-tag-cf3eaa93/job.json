@@ -1,0 +1,16 @@
+{
+  "id": "job-20260605-195843-immutable-image-tag-cf3eaa93",
+  "title": "배포 흐름 정리와 immutable image tag 강제",
+  "goal": "legacy run script와 원본 Dockerfile을 제거하고 Ansible/Compose 배포가 12자리 Git SHA 이미지 태그만 사용하도록 정리합니다.",
+  "status": "DONE",
+  "created_at": "2026-06-05T19:58:43+09:00",
+  "updated_at": "2026-06-05T20:52:27+09:00",
+  "context_refs": [],
+  "task_ids": [
+    "task-20260605-195843-legacy-run-script-ansible-a2d35ee9",
+    "task-20260605-202509-dockerfile-881fe9be",
+    "task-20260605-205227-12-git-sha-immutable-image-tag-9e397328"
+  ],
+  "branch_name": "",
+  "checkpoint_ids": []
+}

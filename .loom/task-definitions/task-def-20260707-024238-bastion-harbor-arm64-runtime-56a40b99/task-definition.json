@@ -1,0 +1,28 @@
+{
+  "id": "task-def-20260707-024238-bastion-harbor-arm64-runtime-56a40b99",
+  "job_definition_id": "job-20260605-171857-jenkins-ansible-harbor-68f2aa09",
+  "title": "bastion 배포와 Harbor/arm64/runtime 문제 해결",
+  "description": "bastion sudo docker 권한, Harbor 인증서 신뢰, arm64 이미지 빌드, binfmt bootstrap, uStreamer runtime 누락을 수정합니다.",
+  "created_at": "2026-07-07T02:42:38+00:00",
+  "updated_at": "2026-07-07T02:42:38+00:00",
+  "order_index": 3,
+  "legacy_task_id": "task-20260605-173702-bastion-harbor-arm64-runtime-dd681718",
+  "depends_on": [
+    "task-def-20260707-024238-jenkins-pipeline-09ff6c85"
+  ],
+  "expected_output": "Jenkins가 arm64 대상 이미지를 만들고 bastion에서 Harbor 이미지를 pull/deploy할 수 있습니다.",
+  "done_condition": "bastion 배포 중 권한, 인증서, 아키텍처, runtime library 문제가 해결됩니다.",
+  "in_scope": "Ansible deploy, Jenkins arm64 build, Harbor trust, optimized Dockerfile runtime dependency.",
+  "out_of_scope": "Tailscale HTTPS serving과 auth key 노출 방지는 별도 Task입니다.",
+  "validation_hint": "`git show 707353e 5f61319 ca67c26 53a625c 17c5aa2`로 변경을 확인합니다.",
+  "required_docs": [
+    "docs/deployment-ansible.md",
+    "docs/jenkins-migration.md",
+    "docs/project-state.md"
+  ],
+  "memory_refs": [],
+  "default_agent": "",
+  "context_policy_id": "",
+  "executor_policy_id": "",
+  "review_policy": ""
+}

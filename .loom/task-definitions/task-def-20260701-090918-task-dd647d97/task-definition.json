@@ -1,0 +1,24 @@
+{
+  "id": "task-def-20260701-090918-task-dd647d97",
+  "job_definition_id": "job-20260701-090917-job-318bb3e3",
+  "title": "커밋과 문서를 Task 근거에 매핑",
+  "description": "각 draft Task를 Git metadata와 프로젝트 문서에 대조해 과거 작업 기억이 근거 기반으로 남도록 합니다.",
+  "created_at": "2026-07-01T09:09:18+00:00",
+  "updated_at": "2026-07-01T09:17:10+00:00",
+  "order_index": 4,
+  "legacy_task_id": "task-20260701-090918-task-02be4231",
+  "depends_on": [
+    "task-def-20260701-090918-task-8960e4ed"
+  ],
+  "expected_output": "`.loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/evidence-map.json`이 각 Task draft를 commits, files, docs, dates와 연결합니다. Task/Job 제목, 근거 설명, gap 이유 같은 사용자 표시 필드는 한국어여야 합니다.",
+  "done_condition": "모든 Task가 evidence refs를 갖거나 low-confidence 이유를 한국어로 명시합니다.",
+  "in_scope": "commit_refs, 변경 파일, source docs, 날짜, confidence, evidence gap.",
+  "out_of_scope": "누락된 결정을 조용히 지어내지 않고 inferred로 표시합니다.",
+  "validation_hint": "git log 날짜를 spot-check하고 Task 순서가 증거 chronology를 따르는지 확인합니다.",
+  "required_docs": [],
+  "memory_refs": [],
+  "default_agent": "codex",
+  "context_policy_id": "",
+  "executor_policy_id": "",
+  "review_policy": ""
+}

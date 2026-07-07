@@ -1,0 +1,41 @@
+{
+  "id": "task-20260701-090918-workflow-memory-648238c1",
+  "job_id": "job-20260701-090917-job-318bb3e3",
+  "title": "검토된 workflow memory 반영",
+  "description": "검토가 끝난 draft를 Loom 과거 Job, Task, Event, memory artifact로 반영합니다.",
+  "status": "DONE",
+  "created_at": "2026-07-01T09:09:18+00:00",
+  "updated_at": "2026-07-01T09:22:37+00:00",
+  "order_index": 6,
+  "assigned_agent": "foreground",
+  "depends_on": [
+    "task-20260701-090918-task-fb758d55"
+  ],
+  "expected_output": "`.loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/apply-plan.json`과 `.loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/reconstruction-report.md`에 반영 계획과 결과가 기록됩니다.",
+  "done_condition": "검토된 draft만 과거 Job/Task로 생성되고, 추론된 내용은 reconstruction report에 남으며 최종 사용자 표시 Job/Task 제목은 한국어입니다.",
+  "in_scope": "과거 Job/Task record, event, note, artifact, reconstruction report 생성.",
+  "out_of_scope": "이미 존재하는 사용자 생성 Loom Job/Task를 삭제하거나 rewrite하지 않습니다.",
+  "validation_hint": "`loom status`, `loom job list`를 실행하고 복원 Job을 확인한 뒤 source of truth로 사용합니다.",
+  "required_docs": [],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f"
+  ],
+  "branch_name": "develop",
+  "git_dirty": true,
+  "git_snapshot_captured_at": "2026-07-01T09:22:37+00:00",
+  "artifacts": [
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/agent-events.jsonl",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/artifacts.json",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/context.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/decision.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/git-snapshot.json",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/logs.txt",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/previous-results.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/prompt.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/result.md",
+    ".loom/tasks/task-20260701-090918-workflow-memory-648238c1/troubleshooting.md"
+  ]
+}

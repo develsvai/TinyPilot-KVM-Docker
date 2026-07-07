@@ -1,0 +1,35 @@
+{
+  "id": "task-20250825-030738-run-script-68599c5d",
+  "job_id": "job-20250825-030738-hid-8bdb752a",
+  "title": "수동 실행용 run script 추가",
+  "description": "로컬 또는 장비에서 실행 흐름을 단순화하기 위한 `run.sh` 실행 파일을 추가합니다.",
+  "status": "DONE",
+  "created_at": "2025-08-25T03:07:38+09:00",
+  "updated_at": "2025-08-25T03:07:38+09:00",
+  "order_index": 1,
+  "assigned_agent": "",
+  "depends_on": [],
+  "expected_output": "수동 실행 진입점이 레포에 추가됩니다.",
+  "done_condition": "사용자가 compose/HID 준비 흐름을 스크립트로 시작할 수 있습니다.",
+  "in_scope": "run script 추가.",
+  "out_of_scope": "후속 Ansible 배포 흐름과 legacy 제거는 별도 Job입니다.",
+  "validation_hint": "`git show 336791e`로 추가 파일을 확인합니다.",
+  "required_docs": [
+    "README.md"
+  ],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "336791e"
+  ],
+  "branch_name": "",
+  "git_dirty": false,
+  "git_snapshot_captured_at": "",
+  "artifacts": [
+    ".loom/tasks/task-20250825-030738-run-script-68599c5d/result.md",
+    ".loom/tasks/task-20250825-030738-run-script-68599c5d/decision.md",
+    ".loom/tasks/task-20250825-030738-run-script-68599c5d/troubleshooting.md",
+    ".loom/tasks/task-20250825-030738-run-script-68599c5d/artifacts.json"
+  ]
+}

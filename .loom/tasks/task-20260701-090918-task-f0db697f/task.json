@@ -1,0 +1,39 @@
+{
+  "id": "task-20260701-090918-task-f0db697f",
+  "job_id": "job-20260701-090917-job-318bb3e3",
+  "title": "레포 구조와 히스토리 스캔",
+  "description": "레포 구조, 프로젝트 문서, Git 히스토리를 읽고 추론 전에 사실 기반 스캔을 작성합니다.",
+  "status": "DONE",
+  "created_at": "2026-07-01T09:09:18+00:00",
+  "updated_at": "2026-07-01T09:11:02+00:00",
+  "order_index": 1,
+  "assigned_agent": "foreground",
+  "depends_on": [],
+  "expected_output": "`.loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/repo-scan.md`와 `.loom/imports/import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d/git-history.json`에 관찰된 레포/커밋 신호가 기록됩니다.",
+  "done_condition": "레포 영역, 중요 문서, 커밋 범위, 생략/약한 근거가 기록되고 과거 Job은 아직 생성하지 않습니다.",
+  "in_scope": "읽기 전용 레포 스캔, git log 수집, 문서 inventory, commit/file signal 추출.",
+  "out_of_scope": "이 단계에서 과거 Job 또는 Task를 생성하지 않습니다.",
+  "validation_hint": "`loom import-history status import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d`를 실행해 scan artifact가 있는지 확인합니다.",
+  "required_docs": [],
+  "memory_refs": [],
+  "run_attempts": 0,
+  "last_error": "",
+  "commit_refs": [
+    "f3e43c5f5196c2bf54b6a8c2a6ad6140aad3550f"
+  ],
+  "branch_name": "develop",
+  "git_dirty": true,
+  "git_snapshot_captured_at": "2026-07-01T09:11:02+00:00",
+  "artifacts": [
+    ".loom/tasks/task-20260701-090918-task-f0db697f/agent-events.jsonl",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/artifacts.json",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/context.md",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/decision.md",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/git-snapshot.json",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/logs.txt",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/previous-results.md",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/prompt.md",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/result.md",
+    ".loom/tasks/task-20260701-090918-task-f0db697f/troubleshooting.md"
+  ]
+}

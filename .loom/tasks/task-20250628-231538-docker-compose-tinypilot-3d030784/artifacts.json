@@ -1,0 +1,16 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-06-28T23:15:38+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250628-231538-docker-compose-tinypilot-3d030784/result.md",
+    ".loom/tasks/task-20250628-231538-docker-compose-tinypilot-3d030784/decision.md",
+    ".loom/tasks/task-20250628-231538-docker-compose-tinypilot-3d030784/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "c11a70233f98"
+  ],
+  "source_docs": [
+    "README.md"
+  ],
+  "changed_files": []
+}

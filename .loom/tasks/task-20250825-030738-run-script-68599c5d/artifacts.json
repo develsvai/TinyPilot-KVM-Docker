@@ -1,0 +1,16 @@
+{
+  "status": "DONE",
+  "generated_at": "2025-08-25T03:07:38+09:00",
+  "artifacts": [
+    ".loom/tasks/task-20250825-030738-run-script-68599c5d/result.md",
+    ".loom/tasks/task-20250825-030738-run-script-68599c5d/decision.md",
+    ".loom/tasks/task-20250825-030738-run-script-68599c5d/troubleshooting.md"
+  ],
+  "commit_refs": [
+    "336791e"
+  ],
+  "source_docs": [
+    "README.md"
+  ],
+  "changed_files": []
+}

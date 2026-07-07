@@ -1,0 +1,19 @@
+{
+  "status": "DONE",
+  "agent": "foreground",
+  "mode": "foreground",
+  "task_run_id": "task-run-20260701-091714-task-def-20260701-090918-task-def-ba18d95d-9f19087e",
+  "generated_at": "2026-07-01T09:17:59+00:00",
+  "artifacts": [
+    ".loom/tasks/task-20260701-090918-task-fb758d55/prompt.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/context.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/previous-results.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/git-snapshot.json",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/result.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/decision.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/troubleshooting.md",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/logs.txt",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/agent-events.jsonl",
+    ".loom/tasks/task-20260701-090918-task-fb758d55/artifacts.json"
+  ]
+}
