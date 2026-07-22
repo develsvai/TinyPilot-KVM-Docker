@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "import_id": "import-history-20260701-090917-tinypilot-kvm-docker-d8897e4d",
-  "generated_at": "2026-07-07T02:42:38+00:00",
-  "executed": true,
-  "mode": "execute",
+  "generated_at": "2026-07-20T03:13:04+00:00",
+  "executed": false,
+  "mode": "dry-run",
   "summary": {
     "jobs": 5,
     "tasks": 16
@@ -15,8 +15,7 @@
       "title": "TinyPilot Docker 기반과 HID 입력 구성 복원",
       "original_created_at": "2025-06-28T23:15:38+09:00",
       "task_count": 4,
-      "status": "DONE",
-      "job_id": "job-20250628-231538-tinypilot-docker-hid-1571c145"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -31,8 +30,7 @@
         "README.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250628-231538-docker-compose-tinypilot-3d030784"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -49,8 +47,7 @@
         "images/tinypilot/docs/usb-gadget-driver.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250628-233220-usb-gadget-141f5361"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -66,8 +63,7 @@
         "docs/routing-and-serving.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250711-002629-ustreamer-d75645a7"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -84,8 +80,7 @@
         "README.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250711-015415-hid-7-5eb9828f"
+      "status": "DRY_RUN"
     },
     {
       "type": "job",
@@ -93,8 +88,7 @@
       "title": "Tailscale 원격 접속과 nginx 프록시 라우팅 구성",
       "original_created_at": "2025-08-24T12:30:31+09:00",
       "task_count": 3,
-      "status": "DONE",
-      "job_id": "job-20250824-123031-tailscale-nginx-1de08ec4"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -110,8 +104,7 @@
         "docs/routing-and-serving.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250824-123031-tailscale-nginx-proxy-bf77db2a"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -128,8 +121,7 @@
         "docs/project-state.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250824-123431-config-a485622b"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -146,8 +138,7 @@
         "README.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250824-202058-nginx-ingress-tailscale-d7246564"
+      "status": "DRY_RUN"
     },
     {
       "type": "job",
@@ -155,8 +146,7 @@
       "title": "로컬 실행 스크립트와 HID 설정 검증 보강",
       "original_created_at": "2025-08-25T03:07:38+09:00",
       "task_count": 2,
-      "status": "DONE",
-      "job_id": "job-20250825-030738-hid-8bdb752a"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -171,8 +161,7 @@
         "README.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250825-030738-run-script-68599c5d"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -189,8 +178,7 @@
         "docs/project-state.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20250825-031132-udc-hid-readme-485bc9a3"
+      "status": "DRY_RUN"
     },
     {
       "type": "job",
@@ -198,8 +186,7 @@
       "title": "Jenkins와 Ansible 기반 Harbor 배포 흐름 현대화",
       "original_created_at": "2026-06-05T17:18:57+09:00",
       "task_count": 4,
-      "status": "DONE",
-      "job_id": "job-20260605-171857-jenkins-ansible-harbor-68f2aa09"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -217,8 +204,7 @@
         "docs/project-state.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20260605-171857-ansible-jenkins-114ca682"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -236,8 +222,7 @@
         "docs/deployment-ansible.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20260605-172811-jenkins-pipeline-8aed0daa"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -258,8 +243,7 @@
         "docs/project-state.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20260605-173702-bastion-harbor-arm64-runtime-dd681718"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -278,8 +262,7 @@
         "docs/operational-checklist.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20260605-180846-tailscale-auth-key-https-serving-fb709860"
+      "status": "DRY_RUN"
     },
     {
       "type": "job",
@@ -287,8 +270,7 @@
       "title": "배포 흐름 정리와 immutable image tag 강제",
       "original_created_at": "2026-06-05T19:58:43+09:00",
       "task_count": 3,
-      "status": "DONE",
-      "job_id": "job-20260605-195843-immutable-image-tag-cf3eaa93"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -306,8 +288,7 @@
         "docs/project-state.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20260605-195843-legacy-run-script-ansible-a2d35ee9"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -324,8 +305,7 @@
         "docs/image-optimization-portfolio.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20260605-202509-dockerfile-881fe9be"
+      "status": "DRY_RUN"
     },
     {
       "type": "task",
@@ -343,8 +323,7 @@
         "docs/image-optimization-portfolio.md"
       ],
       "changed_files": [],
-      "status": "DONE",
-      "task_id": "task-20260605-205227-12-git-sha-immutable-image-tag-9e397328"
+      "status": "DRY_RUN"
     }
   ]
 }
